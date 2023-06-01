@@ -1,0 +1,55 @@
+CONSULTAS SQL BASE DE DATOS GESTION GRUPO 9
+
+		PROYECTO
+
+INSERT INTO proyecto(IdProyecto, Nombre, Descripcion, FechaInicial, Estado) VALUES
+(null,'Gestion','Trabajo Final Laboratorio','2023-05-31',1),
+(null,'Robot','Hacer Funcionar un Robot','2023-03-28',1),
+(null,'Viaje','Creacion de viajes','2022-05-31',0);
+(null,'Universidad','Trabajo Transversal Laboratorio','2023-04-31',1);
+
+
+		Equipo
+
+INSERT INTO equipo(IdProyecto, IdEquipo, Nombre, FechaCreacion, Estado) VALUES 
+(null,1,'Equipo 2', '2022-10-14',1),
+(null,14,'Equipo 9', '2023-5-6',1),
+(null,16,'Equipo 4', '2021-3-24',1),
+(null,15,'Equipo 2', '2023-5-9',1),
+(null,1,'Equipo 1', '2023-8-17',1);
+
+
+		EQUIPO MIEMBROS (cambiar idnombre)
+
+INSERT INTO equipomiembros(IdMiembroEq,  IdEquipo, IdMiembro,FechaIncorporacion) VALUES
+(null,2,1"2023-04-25"),
+(null,3,2"2023-03-14")
+(null,4,3,"2021-10-19"),
+(null,5,4,"2022-03-28"),
+(null,6,5,"2022-08-04"),
+(null,6,6,"2022-11-12");
+
+		EQUIPOS
+INSERT INTO miembro(IdMiembro, Dni, Apellido, Nombre, Estado) VALUES
+(null, 36589556,"Lopez", "Susanita",1),
+(null, 3899556,"Lopez", "Marquitos",1),
+(null, 29874159,"Sosa", "Lautaro",1),
+(null, 35715982,"Mercado", "Florencia",0),
+(null, 45678925,"Pepito", "Matias",1),
+(null, 44487596,"Rosarios", "Martina",0);
+
+		TAREA
+
+INSERT INTO tarea(IdTarea, IdMiembroEq, Nombre, FechaComienzo, FechaCierre, Estado) VALUES 
+(null,14,"Crear Vistas", "2023-05-08","2023-05-30",1),
+(null,13,"Crear Clases", "2022-02-20","2022-03-03",1),
+(null,15,"Crear Conexión", "2023-10-28","2023-11-20",1),
+(null,17,"Contar Chistes", "2023-01-18","2023-12-10",1);
+
+		COMENTARIOS
+
+INSERT INTO comentarios(IdComentario, IdTarea, Comentario, FechaAvance) VALUES 
+(null,1,"Deben crear 3/5 vistas","2023-05-20"),
+(null,2,"Crear Clases Entidades","2023-10-10"),
+(null,3,"Deben Crear conexion con singleton","2022-08-20"),
+(null,4,"No deben permitir que los compañeros se aburran","2023-01-20");
