@@ -11,4 +11,5 @@ package AccesoADatos;
  */
 public class TareaData {
     
+    //"INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)" TAREA
 }

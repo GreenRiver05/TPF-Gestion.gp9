@@ -11,4 +11,5 @@ package AccesoADatos;
  */
 public class ComentarioData {
     
+    //"INSERT INTO comentarios(IdTarea, Comentario, FechaAvance) VALUES (?,?,?)" COMENTARIO
 }

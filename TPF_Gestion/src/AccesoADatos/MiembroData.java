@@ -10,5 +10,5 @@ package AccesoADatos;
  * @author La Maquina
  */
 public class MiembroData {
-    
+    //"INSERT INTO miembro(Dni, Apellido, Nombre, Estado) VALUES (?,?,?,?)" MIEMBRO
 }

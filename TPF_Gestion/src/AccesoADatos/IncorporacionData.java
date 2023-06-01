@@ -10,5 +10,6 @@ package AccesoADatos;
  * @author La Maquina
  */
 public class IncorporacionData {
+    //"INSERT INTO incorporacion (IdEquipo, IdMiembro,FechaIncorporacion) VALUES (?,?,?)" INCORPORACION
     
 }

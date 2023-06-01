@@ -11,4 +11,6 @@ package AccesoADatos;
  */
 public class ProyectoData {
     
+    
+    //"INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)"
 }

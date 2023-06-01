@@ -11,4 +11,6 @@ package AccesoADatos;
  */
 public class EquipoData {
     
+    
+    //"INSERT INTO equipo(IdProyecto, Nombre, FechaCreacion, Estado) VALUES (?,?,?,?)"  EQUIPO
 }
