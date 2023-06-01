@@ -19,9 +19,9 @@ INSERT INTO equipo(IdProyecto, IdEquipo, Nombre, FechaCreacion, Estado) VALUES
 (null,1,'Equipo 1', '2023-8-17',1);
 
 
-		EQUIPO MIEMBROS (cambiar idnombre)
+		INCORPORACION
 
-INSERT INTO equipomiembros(IdMiembroEq,  IdEquipo, IdMiembro,FechaIncorporacion) VALUES
+INSERT INTO incorporacion (IdIncorporacion  IdEquipo, IdMiembro,FechaIncorporacion) VALUES
 (null,2,1"2023-04-25"),
 (null,3,2"2023-03-14")
 (null,4,3,"2021-10-19"),
@@ -29,7 +29,7 @@ INSERT INTO equipomiembros(IdMiembroEq,  IdEquipo, IdMiembro,FechaIncorporacion)
 (null,6,5,"2022-08-04"),
 (null,6,6,"2022-11-12");
 
-		EQUIPOS
+		MIEMBRO
 INSERT INTO miembro(IdMiembro, Dni, Apellido, Nombre, Estado) VALUES
 (null, 36589556,"Lopez", "Susanita",1),
 (null, 3899556,"Lopez", "Marquitos",1),
@@ -40,11 +40,12 @@ INSERT INTO miembro(IdMiembro, Dni, Apellido, Nombre, Estado) VALUES
 
 		TAREA
 
-INSERT INTO tarea(IdTarea, IdMiembroEq, Nombre, FechaComienzo, FechaCierre, Estado) VALUES 
+INSERT INTO tarea(IdTarea, IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES 
 (null,14,"Crear Vistas", "2023-05-08","2023-05-30",1),
 (null,13,"Crear Clases", "2022-02-20","2022-03-03",1),
 (null,15,"Crear Conexión", "2023-10-28","2023-11-20",1),
-(null,17,"Contar Chistes", "2023-01-18","2023-12-10",1);
+(null,17,"Contar Chistes", "2023-01-18","2023-12-10",1),
+(null,18,"Es la Jefa", "2023-05-08","2023-05-30",1);
 
 		COMENTARIOS
 
@@ -53,3 +54,24 @@ INSERT INTO comentarios(IdComentario, IdTarea, Comentario, FechaAvance) VALUES
 (null,2,"Crear Clases Entidades","2023-10-10"),
 (null,3,"Deben Crear conexion con singleton","2022-08-20"),
 (null,4,"No deben permitir que los compañeros se aburran","2023-01-20");
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+				CONSULTAS
+
+"INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)"    PROYECTO
+
+"INSERT INTO equipo(IdProyecto, Nombre, FechaCreacion, Estado) VALUES (?,?,?,?)"  EQUIPO
+
+"INSERT INTO incorporacion (IdEquipo, IdMiembro,FechaIncorporacion) VALUES (?,?,?)" INCORPORACION
+
+"INSERT INTO miembro(Dni, Apellido, Nombre, Estado) VALUES (?,?,?,?)" MIEMBRO
+
+"INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)" TAREA
+
+"INSERT INTO comentarios(IdTarea, Comentario, FechaAvance) VALUES (?,?,?)" COMENTARIO
+
+
+
+SELECT incorporacion.IdIncorporacion,incorporacion.IdMiembro, miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado, tarea.Nombre FROM incorporacion,miembro,tarea WHERE incorporacion.IdEquipo =6 AND incorporacion.IdMiembro=miembro.IdMiembro and incorporacion.IdIncorporacion=tarea.IdIncorporacion

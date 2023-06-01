@@ -8,13 +8,13 @@ public class Equipo {
 
     private Proyecto proyecto;
 
-    private int nombre;
+    private String nombre;
 
     private LocalDate fechaCreacion;
 
     private boolean estado;
 
-    public Equipo(int idEquipo, Proyecto proyecto, int nombre, LocalDate fechaCreacion, boolean estado) {
+    public Equipo(int idEquipo, Proyecto proyecto, String nombre, LocalDate fechaCreacion, boolean estado) {
         this.idEquipo = idEquipo;
         this.proyecto = proyecto;
         this.nombre = nombre;
@@ -22,7 +22,7 @@ public class Equipo {
         this.estado = estado;
     }
 
-    public Equipo(Proyecto proyecto, int nombre, LocalDate fechaCreacion, boolean estado) {
+    public Equipo(Proyecto proyecto, String nombre, LocalDate fechaCreacion, boolean estado) {
         this.proyecto = proyecto;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
@@ -48,11 +48,11 @@ public class Equipo {
         this.proyecto = proyecto;
     }
 
-    public int getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 

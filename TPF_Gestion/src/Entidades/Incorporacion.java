@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Incorporacion {
 
-    private int idMiembroEq;
+    private int idIncorporacion;
 
     private Equipo equipo;
 
@@ -12,8 +12,8 @@ public class Incorporacion {
 
     private LocalDate fechaIncorporacion;
 
-    public Incorporacion(int idMiembroEq, Equipo equipo, Miembro miembro, LocalDate fechaIncorporacion) {
-        this.idMiembroEq = idMiembroEq;
+    public Incorporacion(int idIncorporacion, Equipo equipo, Miembro miembro, LocalDate fechaIncorporacion) {
+        this.idIncorporacion = idIncorporacion;
         this.equipo = equipo;
         this.miembro = miembro;
         this.fechaIncorporacion = fechaIncorporacion;
@@ -28,12 +28,12 @@ public class Incorporacion {
     public Incorporacion() {
     }
 
-    public int getIdMiembroEq() {
-        return idMiembroEq;
+    public int getIdIncorporacion() {
+        return idIncorporacion;
     }
 
-    public void setIdMiembroEq(int idMiembroEq) {
-        this.idMiembroEq = idMiembroEq;
+    public void setIdIncorporacion(int idIncorporacion) {
+        this.idIncorporacion = idIncorporacion;
     }
 
     public Equipo getEquipo() {
@@ -62,8 +62,10 @@ public class Incorporacion {
 
     @Override
     public String toString() {
-        return "Incorporacion{" + "idMiembroEq=" + idMiembroEq + ", equipo=" + equipo + ", miembro=" + miembro + ", fechaIncorporacion=" + fechaIncorporacion + '}';
+        return "Incorporacion{" + "idIncorporacion=" + idIncorporacion + ", equipo=" + equipo + ", miembro=" + miembro + ", fechaIncorporacion=" + fechaIncorporacion + '}';
     }
+
+   
 
    
 }
