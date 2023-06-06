@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-06-2023 a las 01:09:17
+-- Tiempo de generación: 06-06-2023 a las 16:25:19
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -29,12 +29,14 @@ USE `gestion_gp9_com2`;
 -- Estructura de tabla para la tabla `comentarios`
 --
 
-CREATE TABLE `comentarios` (
-  `IdComentario` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `comentarios` (
+  `IdComentario` int(11) NOT NULL AUTO_INCREMENT,
   `IdTarea` int(11) NOT NULL,
   `Comentario` varchar(100) NOT NULL,
-  `FechaAvance` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `FechaAvance` date NOT NULL,
+  PRIMARY KEY (`IdComentario`),
+  KEY `IdTarea` (`IdTarea`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `comentarios`
@@ -52,13 +54,15 @@ INSERT INTO `comentarios` (`IdComentario`, `IdTarea`, `Comentario`, `FechaAvance
 -- Estructura de tabla para la tabla `equipo`
 --
 
-CREATE TABLE `equipo` (
-  `IdEquipo` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `equipo` (
+  `IdEquipo` int(11) NOT NULL AUTO_INCREMENT,
   `IdProyecto` int(11) NOT NULL,
   `Nombre` varchar(30) NOT NULL,
   `FechaCreacion` date NOT NULL,
-  `Estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`IdEquipo`),
+  KEY `IdProyecto` (`IdProyecto`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `equipo`
@@ -69,26 +73,30 @@ INSERT INTO `equipo` (`IdEquipo`, `IdProyecto`, `Nombre`, `FechaCreacion`, `Esta
 (3, 14, 'Equipo 9', '2023-05-06', 1),
 (4, 16, 'Equipo 4', '2021-03-24', 1),
 (5, 15, 'Equipo 2', '2023-05-09', 1),
-(6, 1, 'Equipo 1', '2023-08-17', 1);
+(6, 1, 'Equipo 1', '2023-08-17', 1),
+(11, 14, 'Las mariposas', '2022-10-14', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `equipomiembros`
+-- Estructura de tabla para la tabla `incorporacion`
 --
 
-CREATE TABLE `equipomiembros` (
-  `IdMiembroEq` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `incorporacion` (
+  `IdIncorporacion` int(11) NOT NULL AUTO_INCREMENT,
   `IdEquipo` int(11) NOT NULL,
   `IdMiembro` int(11) NOT NULL,
-  `FechaIncorporacion` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `FechaIncorporacion` date NOT NULL,
+  PRIMARY KEY (`IdIncorporacion`),
+  KEY `IdEquipo` (`IdEquipo`),
+  KEY `IdMiembro` (`IdMiembro`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `equipomiembros`
+-- Volcado de datos para la tabla `incorporacion`
 --
 
-INSERT INTO `equipomiembros` (`IdMiembroEq`, `IdEquipo`, `IdMiembro`, `FechaIncorporacion`) VALUES
+INSERT INTO `incorporacion` (`IdIncorporacion`, `IdEquipo`, `IdMiembro`, `FechaIncorporacion`) VALUES
 (13, 2, 1, '2023-01-25'),
 (14, 3, 2, '2023-02-01'),
 (15, 4, 3, '2021-10-19'),
@@ -102,13 +110,15 @@ INSERT INTO `equipomiembros` (`IdMiembroEq`, `IdEquipo`, `IdMiembro`, `FechaInco
 -- Estructura de tabla para la tabla `miembro`
 --
 
-CREATE TABLE `miembro` (
-  `IdMiembro` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `miembro` (
+  `IdMiembro` int(11) NOT NULL AUTO_INCREMENT,
   `Dni` int(11) NOT NULL,
   `Apellido` varchar(30) NOT NULL,
   `Nombre` varchar(30) NOT NULL,
-  `Estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`IdMiembro`),
+  UNIQUE KEY `Dni` (`Dni`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `miembro`
@@ -128,13 +138,15 @@ INSERT INTO `miembro` (`IdMiembro`, `Dni`, `Apellido`, `Nombre`, `Estado`) VALUE
 -- Estructura de tabla para la tabla `proyecto`
 --
 
-CREATE TABLE `proyecto` (
-  `IdProyecto` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `proyecto` (
+  `IdProyecto` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(30) NOT NULL,
   `Descripcion` varchar(30) NOT NULL,
   `FechaInicial` date NOT NULL,
-  `Estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`IdProyecto`),
+  UNIQUE KEY `Nombre` (`Nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `proyecto`
@@ -152,111 +164,27 @@ INSERT INTO `proyecto` (`IdProyecto`, `Nombre`, `Descripcion`, `FechaInicial`, `
 -- Estructura de tabla para la tabla `tarea`
 --
 
-CREATE TABLE `tarea` (
-  `IdTarea` int(11) NOT NULL,
-  `IdMiembroEq` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tarea` (
+  `IdTarea` int(11) NOT NULL AUTO_INCREMENT,
+  `IdIncorporacion` int(11) NOT NULL,
   `Nombre` varchar(30) NOT NULL,
   `FechaComienzo` date NOT NULL,
   `FechaCierre` date NOT NULL,
-  `Estado` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`IdTarea`),
+  KEY `IdIncorporacion` (`IdIncorporacion`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tarea`
 --
 
-INSERT INTO `tarea` (`IdTarea`, `IdMiembroEq`, `Nombre`, `FechaComienzo`, `FechaCierre`, `Estado`) VALUES
+INSERT INTO `tarea` (`IdTarea`, `IdIncorporacion`, `Nombre`, `FechaComienzo`, `FechaCierre`, `Estado`) VALUES
 (1, 14, 'Crear Vistas', '2023-05-08', '2023-05-30', 1),
 (2, 13, 'Crear Clases', '2022-02-20', '2022-03-03', 1),
 (3, 15, 'Crear Conexión', '2023-10-28', '2023-11-20', 1),
-(4, 17, 'Contar Chistes', '2023-01-18', '2023-12-10', 1);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `comentarios`
---
-ALTER TABLE `comentarios`
-  ADD PRIMARY KEY (`IdComentario`),
-  ADD KEY `IdTarea` (`IdTarea`);
-
---
--- Indices de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`IdEquipo`),
-  ADD KEY `IdProyecto` (`IdProyecto`);
-
---
--- Indices de la tabla `equipomiembros`
---
-ALTER TABLE `equipomiembros`
-  ADD PRIMARY KEY (`IdMiembroEq`),
-  ADD KEY `IdEquipo` (`IdEquipo`),
-  ADD KEY `IdMiembro` (`IdMiembro`);
-
---
--- Indices de la tabla `miembro`
---
-ALTER TABLE `miembro`
-  ADD PRIMARY KEY (`IdMiembro`),
-  ADD UNIQUE KEY `Dni` (`Dni`);
-
---
--- Indices de la tabla `proyecto`
---
-ALTER TABLE `proyecto`
-  ADD PRIMARY KEY (`IdProyecto`),
-  ADD UNIQUE KEY `Nombre` (`Nombre`);
-
---
--- Indices de la tabla `tarea`
---
-ALTER TABLE `tarea`
-  ADD PRIMARY KEY (`IdTarea`),
-  ADD KEY `IdMiembroEq` (`IdMiembroEq`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `comentarios`
---
-ALTER TABLE `comentarios`
-  MODIFY `IdComentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  MODIFY `IdEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `equipomiembros`
---
-ALTER TABLE `equipomiembros`
-  MODIFY `IdMiembroEq` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT de la tabla `miembro`
---
-ALTER TABLE `miembro`
-  MODIFY `IdMiembro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `proyecto`
---
-ALTER TABLE `proyecto`
-  MODIFY `IdProyecto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `tarea`
---
-ALTER TABLE `tarea`
-  MODIFY `IdTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+(4, 17, 'Contar Chistes', '2023-01-18', '2023-12-10', 1),
+(5, 18, 'Es la Jefa', '2023-05-08', '2023-05-30', 1);
 
 --
 -- Restricciones para tablas volcadas
@@ -272,27 +200,25 @@ ALTER TABLE `comentarios`
 -- Filtros para la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`IdProyecto`) REFERENCES `proyecto` (`IdProyecto`),
-  ADD CONSTRAINT `equipo_ibfk_2` FOREIGN KEY (`IdEquipo`) REFERENCES `equipomiembros` (`IdEquipo`);
+  ADD CONSTRAINT `equipo_ibfk_1` FOREIGN KEY (`IdProyecto`) REFERENCES `proyecto` (`IdProyecto`);
 
 --
--- Filtros para la tabla `equipomiembros`
+-- Filtros para la tabla `incorporacion`
 --
-ALTER TABLE `equipomiembros`
-  ADD CONSTRAINT `equipomiembros_ibfk_1` FOREIGN KEY (`IdEquipo`) REFERENCES `equipo` (`IdEquipo`),
-  ADD CONSTRAINT `equipomiembros_ibfk_2` FOREIGN KEY (`IdMiembro`) REFERENCES `miembro` (`IdMiembro`);
+ALTER TABLE `incorporacion`
+  ADD CONSTRAINT `incorporacion_ibfk_1` FOREIGN KEY (`IdEquipo`) REFERENCES `equipo` (`IdEquipo`);
 
 --
 -- Filtros para la tabla `miembro`
 --
 ALTER TABLE `miembro`
-  ADD CONSTRAINT `miembro_ibfk_1` FOREIGN KEY (`IdMiembro`) REFERENCES `equipomiembros` (`IdMiembro`);
+  ADD CONSTRAINT `miembro_ibfk_1` FOREIGN KEY (`IdMiembro`) REFERENCES `incorporacion` (`IdMiembro`);
 
 --
 -- Filtros para la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`IdMiembroEq`) REFERENCES `equipomiembros` (`IdMiembroEq`);
+  ADD CONSTRAINT `tarea_ibfk_1` FOREIGN KEY (`IdIncorporacion`) REFERENCES `incorporacion` (`IdIncorporacion`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

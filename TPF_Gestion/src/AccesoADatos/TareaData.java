@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AccesoADatos;
 
 import Entidades.Incorporacion;
@@ -16,10 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author La Maquina
- */
+
 public class TareaData {
 
     //"INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)" TAREA
@@ -66,6 +59,7 @@ public class TareaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
+            
         }
 
         return infoEquipo;

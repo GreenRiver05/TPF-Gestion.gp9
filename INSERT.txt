@@ -11,7 +11,7 @@ INSERT INTO proyecto(IdProyecto, Nombre, Descripcion, FechaInicial, Estado) VALU
 
 		Equipo
 
-INSERT INTO equipo(IdProyecto, IdEquipo, Nombre, FechaCreacion, Estado) VALUES 
+INSERT INTO equipo(IdEquipo, IdProyecto, Nombre, FechaCreacion, Estado) VALUES 
 (null,1,'Equipo 2', '2022-10-14',1),
 (null,14,'Equipo 9', '2023-5-6',1),
 (null,16,'Equipo 4', '2021-3-24',1),
