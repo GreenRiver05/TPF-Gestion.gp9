@@ -37,6 +37,13 @@ INSERT INTO miembro(IdMiembro, Dni, Apellido, Nombre, Estado) VALUES
 (null, 35715982,"Mercado", "Florencia",0),
 (null, 45678925,"Pepito", "Matias",1),
 (null, 44487596,"Rosarios", "Martina",0);
+-----------------------------------------------------------------------------------------------------------------------------
+(null, 434546789,"Guerrero", "Thor",1),
+(null, 555321698,"Clavito", "Pablito",0), 
+(null, 77223381,"Ines", "Esario",1),
+(null, 86782201,"Aitor", "Tilla",1),
+(null, 46231794,"Sosa", "Carlos",1),
+(null,2345118,"Paredes", "Armando",0);
 
 		TAREA
 
@@ -61,6 +68,13 @@ INSERT INTO comentarios(IdComentario, IdTarea, Comentario, FechaAvance) VALUES
 				CONSULTAS
 
 "INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)"    PROYECTO
+"SELECT * FROM proyecto WHERE estado=? " PROYECTO
+"SELECT * FROM proyecto WHERE Nombre=?" PROYECTO
+"UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE Nombre=?" PROYECTO
+"UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?" PROYECTO
+"UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?" PROYECTO
+
+
 
 "INSERT INTO equipo(IdProyecto, Nombre, FechaCreacion, Estado) VALUES (?,?,?,?)"  EQUIPO
 
