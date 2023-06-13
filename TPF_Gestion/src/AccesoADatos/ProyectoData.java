@@ -1,4 +1,3 @@
-
 package AccesoADatos;
 
 import Entidades.*;
@@ -11,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 
 public class ProyectoData {
 
@@ -51,7 +49,6 @@ public class ProyectoData {
     }
     public List<Proyecto> listarProyectos(boolean estado) {
         ArrayList<Proyecto> listaProyecto = new ArrayList();
-        Proyecto proyecto = new Proyecto();
 
         String sql = "SELECT * FROM proyecto WHERE estado =?";
 
@@ -65,7 +62,7 @@ public class ProyectoData {
                 JOptionPane.showMessageDialog(null, "No existen Proyectos.");
             } else {
                 do {
-
+                    Proyecto proyecto = new Proyecto();
                     proyecto.setIdProyecto(rs.getInt(1));
                     proyecto.setNombre(rs.getString(2));
                     proyecto.setDescripcion(rs.getString(3));
@@ -76,13 +73,13 @@ public class ProyectoData {
             }
 
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
 
         return listaProyecto;
 
     }
-    public Proyecto buscarPorNombre(String nombre){
+    public Proyecto buscarPorNombre(String nombre) {
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
         Proyecto proyecto = new Proyecto();
         PreparedStatement ps;
@@ -91,11 +88,11 @@ public class ProyectoData {
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+
                 proyecto.setIdProyecto(rs.getInt("idProyecto"));
                 proyecto.setNombre(rs.getString("nombre"));
                 proyecto.setDescripcion(rs.getString("descripcion"));
-                proyecto.setFechaInicial(rs.getDate("FechaIncial").toLocalDate());
+                proyecto.setFechaInicial(rs.getDate("FechaInicial").toLocalDate());
                 proyecto.setEstado(rs.getBoolean("Estado"));
 
             } else {
@@ -107,17 +104,18 @@ public class ProyectoData {
         }
 
         return proyecto;
-        
+
     }
-    public void modificarProyecto(Proyecto proyecto){
-       String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE Nombre=?";
-       try {
+
+    public void modificarProyecto(Proyecto proyecto) {
+        String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE idProyecto=?";
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, proyecto.getNombre());
             ps.setString(2, proyecto.getDescripcion());
             ps.setDate(3, Date.valueOf(proyecto.getFechaInicial()));
             ps.setBoolean(4, proyecto.isEstado());
-            ps.setString(5, proyecto.getNombre());
+            ps.setInt(5, proyecto.getIdProyecto());
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Proyecto modificado exitosamente.");
             } else {
@@ -128,12 +126,13 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    public void finalizado(int id){
-       String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
-       try {
+
+    public void finalizado(int id) {
+        String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-           
+
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Proyecto Finalizado.");
             } else {
@@ -144,12 +143,13 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    public void enProceso(int id){
-          String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
-       try {
+
+    public void enProceso(int id) {
+        String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
-           
+
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Proyecto en Proceso.");
             } else {
@@ -160,5 +160,5 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-   
+
 }
