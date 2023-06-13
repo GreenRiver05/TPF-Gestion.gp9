@@ -46,7 +46,6 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
-    
     public Miembro buscarMiembroDNI(int dni) {//FUNCA
         String sql = "SELECT idMiembro,Dni, Apellido, Nombre, Estado FROM miembro WHERE Dni=?";
         Miembro miembro = null;
@@ -72,7 +71,6 @@ public class MiembroData {
 
         return miembro;
     }
-    
     public Miembro buscarMiembroPorApellido(String Apellido) {
         String sql = "SELECT * FROM `miembro` WHERE Apellido=?";
         Miembro miembro = null;
@@ -128,7 +126,7 @@ public class MiembroData {
         return miembross;
 
     }
-      public void bajaMiembro(int id) {
+    public void bajaMiembro(int id) {
         String sql = "UPDATE miembro SET Estado=0 WHERE idMiembro=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -143,7 +141,6 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
-    
     public void altaMiembro(int id) {//FUNCA
 
         String sql = "UPDATE miembro SET Estado=1 WHERE idMiembro=?";
@@ -161,8 +158,7 @@ public class MiembroData {
         }
 
     }
-    
-     public void modificarMiembro(Miembro miembro) {//FUNCA
+    public void modificarMiembro(Miembro miembro) {//FUNCA
         String sql = "UPDATE miembro SET Dni=? ,Apellido=?, Nombre=?, Estado=? WHERE idMiembro=?";
 
         try {

@@ -56,7 +56,6 @@ public class ProyectoData {
         }
 
     }
-
     public List<Proyecto> listarProyectos(boolean estado) {
         ArrayList<Proyecto> listaProyecto = new ArrayList();
         Proyecto proyecto = new Proyecto();
@@ -90,8 +89,7 @@ public class ProyectoData {
         return listaProyecto;
 
     }
-    
-    public void buscarPorNombre(String nombre){
+    public Proyecto buscarPorNombre(String nombre){
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
         Proyecto proyecto = new Proyecto();
         PreparedStatement ps;
@@ -118,7 +116,6 @@ public class ProyectoData {
         return proyecto;
         
     }
-    
     public void modificarProyecto(Proyecto proyecto){
        String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE Nombre=?";
        try {
@@ -138,7 +135,6 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    
     public void finalizado(int id){
        String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
        try {
@@ -155,7 +151,6 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-
     public void enProceso(int id){
           String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
        try {
@@ -172,8 +167,5 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    
-    
-    
-    
+   
 }

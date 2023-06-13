@@ -44,7 +44,7 @@ public class TPF_Gestion {
 //         Equipo eq=new Equipo (pro,"Equipo 06",LocalDate.of(2023,4,10),true);
 //         EquipoData ed=new EquipoData();
 //         ed.crearEquipo(eq);
-//       
+//  
 
 //...............BUSCAR POR NOMBRE............
 //        EquipoData id = new EquipoData();

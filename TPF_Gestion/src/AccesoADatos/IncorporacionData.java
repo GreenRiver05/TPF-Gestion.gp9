@@ -48,33 +48,109 @@ public class IncorporacionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Incorporacion" + ex.getMessage());
         }
     }
-
-    public Incorporacion buscarIncorporacion(int id) {
-        String sql = "SELECT * FROM incorporacion WHERE IdIncorporacion=?";
-        Incorporacion incorporacion = null;
+    public ArrayList<Incorporacion> buscarPorEquipo(Equipo equipo) {
+        String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.Dni, miembro.Estado, incorporacion.FechaIncorporacion, proyecto.Nombre, proyecto.Estado\n"
+                + "FROM incorporacion, miembro, equipo, proyecto\n"
+                + "WHERE equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "AND incorporacion.IdMiembro = miembro.IdMiembro\n"
+                + "and equipo.IdProyecto = proyecto.IdProyecto\n"
+                + "AND equipo.Nombre = ?";
+        
+        Incorporacion incorporacion = new Incorporacion();
+        Miembro miembro = new Miembro();
+        Proyecto proyecto = new Proyecto();
+        ArrayList<Incorporacion> incorporacionesXEquipo = new ArrayList();
 
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setString(1, equipo.getNombre());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
-                incorporacion = new Incorporacion();
-                incorporacion.setIdIncorporacion(rs.getInt(1));
-                incorporacion.getEquipo().setIdEquipo(rs.getInt(2));
-                incorporacion.getMiembro().setIdMiembro(rs.getInt(3));
-                incorporacion.setFechaIncorporacion(rs.getDate(4).toLocalDate());
+                proyecto.setNombre(rs.getString(6));
+                proyecto.setEstado(rs.getBoolean(7));
+                equipo.setProyecto(proyecto);
+                incorporacion.setEquipo(equipo);
+                miembro.setNombre(rs.getString(1));
+                miembro.setApellido(rs.getString(2));
+                miembro.setDni(rs.getInt(3));
+                miembro.setEstado(rs.getBoolean(4));              
+                incorporacion.setMiembro(miembro);
+                incorporacion.setFechaIncorporacion(rs.getDate(5).toLocalDate());
+                incorporacionesXEquipo.add(incorporacion);
 
             } else {
-                JOptionPane.showMessageDialog(null, "Incorporacion Inexistente");
+                JOptionPane.showMessageDialog(null, "No se encontraron Miembros para el equipo " + equipo.getNombre());
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Incorporacion " + ex.getMessage());
         }
 
-        return incorporacion;
+        return incorporacionesXEquipo;
     }
+    public ArrayList<Incorporacion> buscarPorMiembro(Miembro miembro) {
+        Proyecto proyecto = new Proyecto();
+        Equipo equipo = new Equipo();
+        Incorporacion incorporacion = new Incorporacion();
+        ArrayList<Incorporacion> incorporacionesXMiembro = new ArrayList();
+        String sql = "SELECT equipo.Nombre, equipo.Estado , incorporacion.FechaIncorporacion, proyecto.Nombre, proyecto.Estado\n"
+                + "FROM incorporacion, miembro, equipo, proyecto\n"
+                + "WHERE miembro.IdMiembro=incorporacion.IdMiembro\n"
+                + "AND incorporacion.IdEquipo = equipo.IdEquipo\n"
+                + "AND equipo.IdProyecto = proyecto.IdProyecto\n"
+                + "AND miembro.Dni=?";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, miembro.getDni());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+
+                proyecto.setNombre(rs.getString(4));
+                proyecto.setEstado(rs.getBoolean(5));
+                equipo.setProyecto(proyecto);
+                equipo.setNombre(rs.getString(1));
+                equipo.setEstado(rs.getBoolean(2));
+                incorporacion.setEquipo(equipo);
+                incorporacion.setFechaIncorporacion(rs.getDate(3).toLocalDate());
+                incorporacionesXMiembro.add(incorporacion);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro Incorporacion alguna para " + miembro.getDni());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Incorporacion " + ex.getMessage());
+        }
+
+        return incorporacionesXMiembro;
+    }
+    public void eliminar(int idIncorporacion){
+        String sql = "DELETE FROM incorporacion WHERE IdIncorporacion=?";
+       
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idIncorporacion);
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Incorporacion eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro Incorporacion");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Incorporacion" + ex.getMessage());
+        }
+        
+    }
+
+
+
+
+
 
 }

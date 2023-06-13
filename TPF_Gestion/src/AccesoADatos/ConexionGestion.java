@@ -25,7 +25,6 @@ public class ConexionGestion {
             JOptionPane.showMessageDialog(null, "Clase Conexion: Error al cargar Driver" + ex.getMessage());
         }
     }
-
     public static Connection getConexion() {
         Connection con = null;
 
