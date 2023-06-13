@@ -21,9 +21,9 @@ INSERT INTO equipo(IdEquipo, IdProyecto, Nombre, FechaCreacion, Estado) VALUES
 
 		INCORPORACION
 
-INSERT INTO incorporacion (IdIncorporacion  IdEquipo, IdMiembro,FechaIncorporacion) VALUES
-(null,2,1"2023-04-25"),
-(null,3,2"2023-03-14")
+INSERT INTO incorporacion (IdIncorporacion, IdEquipo, IdMiembro,FechaIncorporacion) VALUES
+(null,2,1,"2023-04-25"),
+(null,3,2,"2023-03-14")
 (null,4,3,"2021-10-19"),
 (null,5,4,"2022-03-28"),
 (null,6,5,"2022-08-04"),
@@ -64,8 +64,10 @@ INSERT INTO comentarios(IdComentario, IdTarea, Comentario, FechaAvance) VALUES
 
 
 -------------------------------------------------------------------------------------------------------------------------------------
-
 				CONSULTAS
+-------------------------------------------------------------------------------------------------------------------------------------
+
+			PROYECTO
 
 "INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)"    PROYECTO
 "SELECT * FROM proyecto WHERE estado=? " PROYECTO
@@ -75,10 +77,36 @@ INSERT INTO comentarios(IdComentario, IdTarea, Comentario, FechaAvance) VALUES
 "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?" PROYECTO
 
 
+			EQUIPO
 
 "INSERT INTO equipo(IdProyecto, Nombre, FechaCreacion, Estado) VALUES (?,?,?,?)"  EQUIPO
 
-"INSERT INTO incorporacion (IdEquipo, IdMiembro,FechaIncorporacion) VALUES (?,?,?)" INCORPORACION
+
+
+			INCORPORACION
+
+"INSERT INTO incorporacion (IdEquipo, IdMiembro,FechaIncorporacion) VALUES (?,?,?)" 
+
+"SELECT equipo.Nombre, equipo.Estado , incorporacion.FechaIncorporacion, proyecto.Nombre, proyecto.Estado\n"
+                + "FROM incorporacion, miembro, equipo, proyecto\n"
+                + "WHERE miembro.IdMiembro=incorporacion.IdMiembro\n"
+                + "AND incorporacion.IdEquipo = equipo.IdEquipo\n"
+                + "AND equipo.IdProyecto = proyecto.IdProyecto\n"
+                + "AND miembro.Dni=?"
+
+
+"SELECT miembro.Nombre, miembro.Apellido, miembro.Dni, miembro.Estado, incorporacion.FechaIncorporacion, proyecto.Nombre, proyecto.Estado\n"
+                + "FROM incorporacion, miembro, equipo, proyecto\n"
+                + "WHERE equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "AND incorporacion.IdMiembro = miembro.IdMiembro\n"
+                + "and equipo.IdProyecto = proyecto.IdProyecto\n"
+                + "AND equipo.Nombre = ?"
+
+
+
+
+
+
 
 "INSERT INTO miembro(Dni, Apellido, Nombre, Estado) VALUES (?,?,?,?)" MIEMBRO
 

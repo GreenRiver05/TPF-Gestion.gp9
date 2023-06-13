@@ -1,27 +1,53 @@
-
 package AccesoADatos;
 
-import Entidades.Incorporacion;
-import Entidades.Miembro;
-import Entidades.Tarea;
+import Entidades.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
-
 
 public class TareaData {
 
-    //"INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)" TAREA
+   
     private Connection con;
 
     public TareaData() {
         con = ConexionGestion.getConexion();
     }
 
+    public void crearTarea(Tarea tarea) {
+        String sql = "INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, tarea.getIncorporacion().getIdIncorporacion());
+            ps.setString(2, tarea.getNombre());
+            ps.setDate(3, Date.valueOf(tarea.getComienzo()));
+            ps.setDate(4, Date.valueOf(tarea.getCierre()));
+            ps.setBoolean(5, tarea.isEstado());
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                tarea.setIdTarea(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Tarea registrada con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarea no registrada.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+    }
     public ArrayList<Tarea> consultaInfoEquipo(int idEquipo) {
         ArrayList<Tarea> infoEquipo = new ArrayList();
         Incorporacion incorporacion = new Incorporacion();
@@ -53,16 +79,78 @@ public class TareaData {
                     tarea.setIncorporacion(incorporacion);
                     tarea.setNombre(rs.getString(5));
                     infoEquipo.add(tarea);
-       
+
                 } while (rs.next());
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
-            
+
         }
 
         return infoEquipo;
 
+    }
+    public void finalizada(int id) {
+        String sql = "UPDATE tarea SET  Estado=1 WHERE IdTarea=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Tarea Finalizado.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarea no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+    }
+    public void enProceso(int id) {
+        String sql = "UPDATE tarea SET  Estado=0 WHERE IdTarea=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Tarea en Proceso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarea no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+    }
+    public void modificarTarea(Tarea tarea){
+           String sql = "UPDATE tarea SET IdIncorporacion = ?, Nombre = ?, FechaComienzo = ?, FechaCierre = ?, Estado = ? WHERE IdTarea = ?";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, tarea.getIncorporacion().getIdIncorporacion());
+            ps.setString(2, tarea.getNombre());
+            ps.setDate(3, Date.valueOf(tarea.getComienzo()));
+            ps.setDate(4, Date.valueOf(tarea.getCierre()));
+            ps.setBoolean(5, tarea.isEstado());
+            ps.setInt(6, tarea.getIdTarea());
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                tarea.setIdTarea(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Tarea Modificada con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Tarea no se pudo modificar registrada.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
     }
 }

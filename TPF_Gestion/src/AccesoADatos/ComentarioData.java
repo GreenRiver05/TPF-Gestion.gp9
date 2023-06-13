@@ -1,15 +1,94 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package AccesoADatos;
 
-/**
- *
- * @author La Maquina
- */
+import Entidades.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
+
 public class ComentarioData {
-    
-    //"INSERT INTO comentarios(IdTarea, Comentario, FechaAvance) VALUES (?,?,?)" COMENTARIO
+
+    private Connection con;
+
+    public ComentarioData() {
+        con = ConexionGestion.getConexion();
+    }
+
+    public void crearComentario(Comentarios comentario) {
+        String sql = "INSERT INTO comentarios(IdTarea, Comentario, FechaAvance) VALUES (?,?,?)";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, comentario.getTarea().getIdTarea());
+            ps.setString(2, comentario.getComentario());
+            ps.setDate(3, Date.valueOf(comentario.getAvance()));
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                comentario.setIdComentario(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Comentario registrado con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Comentario no registrado.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+    }
+    public void modificarCometario(Comentarios comentario) {
+        String sql = "UPDATE comentarios SET IdTarea = ?, Comentario = ?, FechaAvance = ? WHERE IdComentario = ?";
+
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, comentario.getTarea().getIdTarea());
+            ps.setString(2, comentario.getComentario());
+            ps.setDate(3, Date.valueOf(comentario.getAvance()));
+            ps.executeUpdate();
+
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
+                comentario.setIdComentario(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Comentario registrado con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Comentario no registrado.");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+    }
+    public void eliminarComentario(int id){
+         String sql = "DELETE FROM comentarios WHERE IdComentario = ?";
+       
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() == 1) {
+                JOptionPane.showMessageDialog(null, "Comentario eliminado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontro Comentario");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Comentario" + ex.getMessage());
+        }
+    }
 }
