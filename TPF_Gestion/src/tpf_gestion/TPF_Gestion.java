@@ -92,7 +92,7 @@ public class TPF_Gestion {
 //         EquipoData ed=new EquipoData();
 //         ed.modificarEquipo(eq);
 //    
-//------------------------------------------------------------------------------INCORPORACION----------------------------
+//------------------------------------------------------------------------------INCORPORACION----------------------------FUNCA
 //..........CREAR //
 //        Proyecto pro = new Proyecto(22,"SSS", "Prueba  datos", LocalDate.of(2022, 3, 1), true);
 //        Miembro mie = new Miembro(13,2323323, "Urquiza", "Pepe", true);
@@ -122,9 +122,40 @@ public class TPF_Gestion {
 //            + " Estado Proyecto : " + miemb.getEquipo().getProyecto().isEstado() + " Id Incorporacion : " + miemb.getIdIncorporacion());
 //        }
 //..........ELIMINAR//
-     
-        IncorporacionData incorData = new IncorporacionData();
-        incorData.eliminar(22);
-
+//        IncorporacionData incorData = new IncorporacionData();
+//        incorData.eliminar(22);
+//   (OBSERVACION PARA ELIMINAR UNA INCORPORACION TAMBIEN SE ELIMINARIA LA TAREA Y EL COMENTARIO)
+//------------------------------------------------------------------------------TAREA----------------------------
+//..........CREAR //
+//        TareaData tData = new TareaData();
+//        Proyecto pro = new Proyecto(22, "SSS", "Prueba  datos", LocalDate.of(2022, 3, 1), true);
+//        Miembro mie = new Miembro(13, 2323323, "Urquiza", "Pepe", true);
+//        Equipo eq = new Equipo(5, pro, "Equipo 7", LocalDate.of(2023, 4, 10), true);
+//        Incorporacion incorporacion = new Incorporacion(23,eq, mie, LocalDate.of(2022, 3, 1));
+//        Tarea tarea = new Tarea(incorporacion,"Hacer Pruebas",LocalDate.of(2022, 3, 1),LocalDate.of(2022, 4, 1),true);
+//        tData.crearTarea(tarea);
+//..........CONSULTAR INFO DE EQUIPO //
+//        TareaData tData = new TareaData();
+//        System.out.println("INFO DE EQUIPO: \n\n");
+//        for (Tarea ta : tData.consultaInfoEquipo(6)) {
+//
+//            System.out.println("MIEMBRO: " + ta.getIncorporacion().getMiembro().getApellido() + " " + ta.getIncorporacion().getMiembro().getNombre()
+//                    + " DNI: " + ta.getIncorporacion().getMiembro().getDni() + "   Estado Miembro: " + ta.getIncorporacion().getMiembro().isEstado()
+//                    + " TAREA DESIGNADA: " + ta.getNombre());
+//        }
+//..........MODIFICAR //
+//        TareaData tData = new TareaData();
+//        Incorporacion incorporacion = new Incorporacion();
+//        incorporacion.setIdIncorporacion(18);
+//        Tarea tarea = new Tarea(8,incorporacion, "Ayudante", LocalDate.of(2022, 10, 10), LocalDate.of(2022, 12, 1), true);
+//        tData.modificarTarea(tarea);
+//........FINALIZAR Y PROCESO //
+        TareaData tData = new TareaData();
+        tData.finalizada(1);
+        tData.finalizada(2);
+        tData.finalizada(3);
+        tData.enProceso(4);
+        tData.enProceso(5);
+        tData.enProceso(3);
     }
 }

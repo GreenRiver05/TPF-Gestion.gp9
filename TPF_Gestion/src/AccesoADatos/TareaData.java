@@ -12,14 +12,13 @@ import javax.swing.JOptionPane;
 
 public class TareaData {
 
-   
     private Connection con;
 
     public TareaData() {
         con = ConexionGestion.getConexion();
     }
 
-    public void crearTarea(Tarea tarea) {
+    public void crearTarea(Tarea tarea) { //FUNCA
         String sql = "INSERT INTO tarea(IdIncorporacion, Nombre, FechaComienzo, FechaCierre, Estado) VALUES (?,?,?,?,?)";
 
         try {
@@ -48,11 +47,9 @@ public class TareaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
     }
-    public ArrayList<Tarea> consultaInfoEquipo(int idEquipo) {
+
+    public ArrayList<Tarea> consultaInfoEquipo(int idEquipo) { //FUNCA
         ArrayList<Tarea> infoEquipo = new ArrayList();
-        Incorporacion incorporacion = new Incorporacion();
-        Tarea tarea = new Tarea();
-        Miembro miembro = new Miembro();
 
         String sql = "SELECT miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado, tarea.Nombre \n"
                 + "FROM incorporacion,miembro,tarea\n"
@@ -70,7 +67,9 @@ public class TareaData {
                 JOptionPane.showMessageDialog(null, "No existe Equipo.");
             } else {
                 do {
-
+                    Incorporacion incorporacion = new Incorporacion();
+                    Tarea tarea = new Tarea();
+                    Miembro miembro = new Miembro();
                     miembro.setDni(rs.getInt(1));
                     miembro.setApellido(rs.getString(2));
                     miembro.setNombre(rs.getString(3));
@@ -91,6 +90,7 @@ public class TareaData {
         return infoEquipo;
 
     }
+
     public void finalizada(int id) {
         String sql = "UPDATE tarea SET  Estado=1 WHERE IdTarea=?";
         try {
@@ -107,6 +107,7 @@ public class TareaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
     }
+
     public void enProceso(int id) {
         String sql = "UPDATE tarea SET  Estado=0 WHERE IdTarea=?";
         try {
@@ -123,12 +124,13 @@ public class TareaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
     }
-    public void modificarTarea(Tarea tarea){
-           String sql = "UPDATE tarea SET IdIncorporacion = ?, Nombre = ?, FechaComienzo = ?, FechaCierre = ?, Estado = ? WHERE IdTarea = ?";
+
+    public void modificarTarea(Tarea tarea) {
+        String sql = "UPDATE tarea SET IdIncorporacion = ?, Nombre = ?, FechaComienzo = ?, FechaCierre = ?, Estado = ? WHERE IdTarea = ?";
 
         try {
 
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, tarea.getIncorporacion().getIdIncorporacion());
             ps.setString(2, tarea.getNombre());
@@ -136,17 +138,13 @@ public class TareaData {
             ps.setDate(4, Date.valueOf(tarea.getCierre()));
             ps.setBoolean(5, tarea.isEstado());
             ps.setInt(6, tarea.getIdTarea());
-            ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-
-            if (rs.next()) {
-                tarea.setIdTarea(rs.getInt(1));
+           
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Tarea Modificada con exito.");
             } else {
-                JOptionPane.showMessageDialog(null, "Tarea no se pudo modificar registrada.");
+                JOptionPane.showMessageDialog(null, "Tarea no se pudo modificar.");
             }
-
+           
             ps.close();
 
         } catch (SQLException ex) {
