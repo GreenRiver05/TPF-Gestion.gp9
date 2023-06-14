@@ -17,7 +17,7 @@ public class EquipoData {
     public EquipoData() {
         con = ConexionGestion.getConexion();
     }
-    public void crearEquipo(Equipo equipo) {
+    public void crearEquipo(Equipo equipo) { //FUNCA
 
         String sql = "INSERT INTO equipo(IdProyecto, Nombre, FechaCreacion, Estado) VALUES (?,?,?,?)";
 
@@ -26,7 +26,7 @@ public class EquipoData {
             ps.setInt(1, equipo.getProyecto().getIdProyecto());
             ps.setString(2, equipo.getNombre());
             ps.setDate(3, Date.valueOf(equipo.getFechaCreacion()));
-            ps.setBoolean(4, true);
+            ps.setBoolean(4, equipo.isEstado()); // Modificacion
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -44,7 +44,7 @@ public class EquipoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo" + ex.getMessage());
         }
     }
-    public Equipo buscarEquipo(String nom) {
+    public Equipo buscarEquipo(String nom) { //FUNCA
         String sql = "SELECT * FROM equipo WHERE Nombre=?";
         Equipo equipo = null;
         Proyecto proyecto = null;
@@ -76,7 +76,7 @@ public class EquipoData {
         return equipo;
 
     }
-    public ArrayList<Equipo> listarEquipos(boolean estado) {
+    public ArrayList<Equipo> listarEquipos(boolean estado) { //FUNCA
         ArrayList<Equipo> equipos = new ArrayList();
 
         String sql = "SELECT* FROM equipo WHERE estado =? ORDER BY nombre";
@@ -137,30 +137,30 @@ public class EquipoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo" + ex.getMessage());
         }
     }
-    public void bajaEquipo(int id) { //FUNCA
-        String sql = "UPDATE equipo SET estado=0 WHERE idEquipo=?";
+    public void bajaEquipo(String nombre) { //FUNCA
+        String sql = "UPDATE equipo SET estado=0 WHERE nombre=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setString(1, nombre);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Baja Realizada.");
             } else {
-                JOptionPane.showMessageDialog(null, "No existe Equipo con ese ID");
+                JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo" + ex.getMessage());
         }
     }
-    public void altaEquipo(int id) {
-        String sql = "UPDATE equipo SET estado=1 WHERE idEquipo=?";
+    public void altaEquipo(String nombre) { //FUNCA
+        String sql = "UPDATE equipo SET estado=1 WHERE nombre=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setString(1, nombre);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Alta Realizada.");
             } else {
-                JOptionPane.showMessageDialog(null, "No existe Equipo con ese ID");
+                JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
             }
             ps.close();
         } catch (SQLException ex) {

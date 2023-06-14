@@ -106,7 +106,6 @@ public class ProyectoData {
         return proyecto;
 
     }
-
     public void modificarProyecto(Proyecto proyecto) {
         String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE idProyecto=?";
         try {
@@ -126,7 +125,6 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-
     public void finalizado(int id) {
         String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
         try {
@@ -143,7 +141,6 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-
     public void enProceso(int id) {
         String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
         try {

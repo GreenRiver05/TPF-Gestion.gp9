@@ -8,46 +8,45 @@ public class TPF_Gestion {
 
     public static void main(String[] args) {
 
-//------------------ PROYECTO ---------------------------- 
-
-        // CREAR //
+//------------------------------------------------------------------------------PROYECTO ---------------------------- FUNCA 
+//..........CREAR //
 //        Proyecto proyecto = new Proyecto("Pruebas", "Probando Main", LocalDate.of(2023, 6, 10), true);
-        ProyectoData proyData = new ProyectoData();
+//        ProyectoData proyData = new ProyectoData();
 //        proyData.crearProyectos(proyecto);
-
-        // BUSCAR              
+//.........BUSCAR //
+//        ProyectoData proyData = new ProyectoData();
 //        Proyecto proyecto2 = proyData.buscarPorNombre("viaje");
 //        System.out.println("METODO BUSCAR\n\n");
 //        System.out.println("Id: " + proyecto2.getIdProyecto() + "   Nombre: " + proyecto2.getNombre() + "   Descripcion: " 
-//                + proyecto2.getDescripcion() + "    Fecha Inicial: " + proyecto2.getFechaInicial() + "  Estado: " + proyecto2.isEstado());
-//        
-//         LISTAR
+//                + proyecto2.getDescripcion() + "    Fecha Inicial: " + proyecto2.getFechaInicial() + "  Estado: " + proyecto2.isEstado());        
+//.........LISTAR //
+//        ProyectoData proyData = new ProyectoData();
 //        for ( Proyecto pro :  proyData.listarProyectos(true)){
 //             System.out.println("\nId: " + pro.getIdProyecto() + "  Nombre: " + pro.getNombre() + " Descripcion: " 
 //                + pro.getDescripcion() + "  Fecha Inicial: " + pro.getFechaInicial() + "    Estado: " + pro.isEstado());
 //        }
-//         MODIFICAR
-        Proyecto proyecto1 = new Proyecto(17,"probando", "Probando Modificaciones", LocalDate.of(2023, 6, 10), true);
-        proyData.modificarProyecto(proyecto1);
-        
-//         FINALIZAR Y PROCESO
+//........MODIFICAR //
+//        ProyectoData proyData = new ProyectoData();
+//        Proyecto proyecto1 = new Proyecto(17,"probando", "Probando Modificaciones", LocalDate.of(2023, 6, 10), true);
+//        proyData.modificarProyecto(proyecto1);
+//........FINALIZAR Y PROCESO //
+//        ProyectoData proyData = new ProyectoData();
 //        proyData.enProceso(1);
 //        proyData.enProceso(15);
 //        proyData.finalizado(14);
 //        proyData.finalizado(16);
-        
-//------------------CREAR MIEMBRO---------------------------- 
+//------------------------------------------------------------------------------MIEMBRO---------------------------- FUNCA
+//        ................ CREAR MIEMBRO ................  
 //        Miembro mie = new Miembro(2323323, "Urquiza", "Pepe",true );
 //        MiembroData md = new MiembroData();
 //        md.crearMiembro(mie);
 //        ................ BUSCAR MIEMBRO POR DNI ................  
 //        MiembroData md = new MiembroData();
-//        System.out.println("Miembro: " + md.buscarMiembroDNI(86782201).toString());
-
-//        ------------------BUSCAR MIEMBRO POR APELLIDO----------------------- 
+//        System.out.println("Miembro: " + md.buscarMiembroDNI(35715982).toString());
+//        ................ BUSCAR MIEMBRO POR APELLIDO ................  
 //        MiembroData md = new MiembroData();
-//        System.out.println("Apellido: " + md.buscarMiembroPorApellido("Clavito").toString());
-//        ................ LISTAR MIEMBROS ................   
+//        System.out.println("Apellido: " + md.buscarMiembroPorApellido("sosa").toString());
+//        ................ LISTAR MIEMBROS ................  
 //        MiembroData md = new MiembroData();
 //        System.out.println("Miembros: ");
 //        for (Miembro mie : md.listarMiembrosPorEstado(true)){
@@ -58,43 +57,40 @@ public class TPF_Gestion {
 //        md.bajaMiembro(50);
 //        md.altaMiembro(50);
 //        ................ MODIFICAR MIEMBRO ................ 
-//        Miembro mie = new Miembro (50, 1234567, "Ramirez", "Pepe", true);
+//        Miembro mie = new Miembro (12, 1234567, "Ramirez", "Pepe", true);
 //        MiembroData md = new MiembroData();
 //        md.modificarMiembro(mie);
-//     ..............CREAR EQUIPO.................
+//------------------------------------------------------------------------------EQUIPO---------------------------- 
+//.....................CREAR EQUIPO.................
 //         Proyecto pro =new Proyecto("SSS","Prueba  datos",LocalDate.of(2022,3,1),true);
 //         ProyectoData pd=new ProyectoData();
 //         pd.crearProyectos(pro);
-//          
-//          
 //         Equipo eq=new Equipo (pro,"Equipo 06",LocalDate.of(2023,4,10),true);
 //         EquipoData ed=new EquipoData();
 //         ed.crearEquipo(eq);
 //  
-//...............BUSCAR POR NOMBRE............
+//.....................BUSCAR POR NOMBRE............
 //        EquipoData id = new EquipoData();
-//        System.out.println("Equipo :" + id.buscarEquipo("Equipo 2").toString());
-//
-////...............LISTAR EQUIPOS.................................
+//        System.out.println("Equipo :" + id.buscarEquipo("las mariposas").toString());
+//.....................LISTAR EQUIPOS.................................
 //        System.out.println("\n\n---------------------------------------------------------------------------------------------------\n\n");
-//
 //        EquipoData e = new EquipoData();
 //        System.out.println("EQUIPOS");
 //        for (Equipo equip : e.listarEquipos(true)) {
 //            System.out.println(equip.toString());
+//        }
 //***********BAJA Y ALTA  EQUIPOS**************
 //        EquipoData equi = new EquipoData();
-//        equi.bajaEquipo(5);
-//        equi.altaEquipo(6);
+//        equi.bajaEquipo("Equipo 4");
+//        equi.altaEquipo("Equipo 85");
 //*********MODIFICAR**************
-//         Proyecto pro =new Proyecto(15,"Prueba","Prueba  datos",LocalDate.of(2022,3,1),true);
+         Proyecto pro =new Proyecto(1,"Prueba","Prueba  datos",LocalDate.of(2022,3,1),true);
 //         ProyectoData pd=new ProyectoData();
 //         pd.crearProyectos(pro);
 //          
-//          
-//         Equipo eq=new Equipo (5,pro,"Equipo 32",LocalDate.of(2023,4,10),true);
-//         EquipoData ed=new EquipoData();
-//         ed.modificarEquipo(eq);
+         Equipo eq=new Equipo (5,pro,"Equipo 7",LocalDate.of(2023,4,10),false);
+         EquipoData ed=new EquipoData();
+         ed.modificarEquipo(eq);
 //       
     }
 }

@@ -17,7 +17,7 @@ public class MiembroData {
         con = ConexionGestion.getConexion();
     }
 
-    public void crearMiembro(Miembro miembro) {
+    public void crearMiembro(Miembro miembro) { //FUNCA
 
         String sql = "INSERT INTO miembro(Dni, Apellido, Nombre, Estado) VALUES (?,?,?,?)";
 
@@ -26,7 +26,7 @@ public class MiembroData {
             ps.setInt(1, miembro.getDni());
             ps.setString(2, miembro.getApellido());
             ps.setString(3, miembro.getNombre());
-            ps.setBoolean(4, true);
+            ps.setBoolean(4, miembro.isEstado()); // modificacion
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -69,7 +69,7 @@ public class MiembroData {
 
         return miembro;
     }
-    public Miembro buscarMiembroPorApellido(String Apellido) {
+    public Miembro buscarMiembroPorApellido(String Apellido) { //FUNCA
         String sql = "SELECT * FROM `miembro` WHERE Apellido=?";
         Miembro miembro = null;
 
@@ -124,31 +124,31 @@ public class MiembroData {
         return miembross;
 
     }
-    public void bajaMiembro(int id) {
-        String sql = "UPDATE miembro SET Estado=0 WHERE idMiembro=?";
+    public void bajaMiembro(int dni) { //FUNCA
+        String sql = "UPDATE miembro SET Estado=0 WHERE Dni=?"; //CAMBIAMOS POR DNI
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Baja Realizada.");
             } else {
-                JOptionPane.showMessageDialog(null, "No existe Miembro con ese ID");
+                JOptionPane.showMessageDialog(null, "No existe Miembro con ese Dni");
             }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
-    public void altaMiembro(int id) {//FUNCA
+    public void altaMiembro(int dni) {//FUNCA
 
-        String sql = "UPDATE miembro SET Estado=1 WHERE idMiembro=?";
+        String sql = "UPDATE miembro SET Estado=1 WHERE Dni=?"; //CAMBIAMOS POR DNI
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Alta Realizada.");
             } else {
-                JOptionPane.showMessageDialog(null, "No existe Miembro con ese ID");
+                JOptionPane.showMessageDialog(null, "No existe Miembro con ese Dni");
             }
             ps.close();
         } catch (SQLException ex) {
