@@ -60,7 +60,7 @@ public class TPF_Gestion {
 //        Miembro mie = new Miembro (12, 1234567, "Ramirez", "Pepe", true);
 //        MiembroData md = new MiembroData();
 //        md.modificarMiembro(mie);
-//------------------------------------------------------------------------------EQUIPO---------------------------- 
+//------------------------------------------------------------------------------EQUIPO----------------------------FUNCA
 //.....................CREAR EQUIPO.................
 //         Proyecto pro =new Proyecto("SSS","Prueba  datos",LocalDate.of(2022,3,1),true);
 //         ProyectoData pd=new ProyectoData();
@@ -84,13 +84,47 @@ public class TPF_Gestion {
 //        equi.bajaEquipo("Equipo 4");
 //        equi.altaEquipo("Equipo 85");
 //*********MODIFICAR**************
-         Proyecto pro =new Proyecto(1,"Prueba","Prueba  datos",LocalDate.of(2022,3,1),true);
+//         Proyecto pro =new Proyecto(1,"Prueba","Prueba  datos",LocalDate.of(2022,3,1),true);
 //         ProyectoData pd=new ProyectoData();
 //         pd.crearProyectos(pro);
 //          
-         Equipo eq=new Equipo (5,pro,"Equipo 7",LocalDate.of(2023,4,10),false);
-         EquipoData ed=new EquipoData();
-         ed.modificarEquipo(eq);
-//       
+//         Equipo eq=new Equipo (5,pro,"Equipo 7",LocalDate.of(2023,4,10),false);
+//         EquipoData ed=new EquipoData();
+//         ed.modificarEquipo(eq);
+//    
+//------------------------------------------------------------------------------INCORPORACION----------------------------
+//..........CREAR //
+//        Proyecto pro = new Proyecto(22,"SSS", "Prueba  datos", LocalDate.of(2022, 3, 1), true);
+//        Miembro mie = new Miembro(13,2323323, "Urquiza", "Pepe", true);
+//        Equipo eq = new Equipo(5,pro, "Equipo 7", LocalDate.of(2023, 4, 10), true);
+//        Incorporacion incorporacion = new Incorporacion(eq,mie, LocalDate.of(2022, 3, 1));
+//        IncorporacionData incorData = new IncorporacionData();
+//        incorData.crearIncorporacion(incorporacion);
+//..........BUSCAR POR EQUIPO //
+//        Proyecto pro = new Proyecto(1, "Viaje", "Creacion de Viajes", LocalDate.of(2022, 5, 31), true);
+//        Equipo eq = new Equipo(6, pro, "Equipo 1", LocalDate.of(2023, 8, 17), true);
+//        IncorporacionData incorData = new IncorporacionData();
+//        System.out.println("Incorporaciones por Equipo:\n");
+//        for (Incorporacion equi : incorData.buscarPorEquipo(eq)) {
+//            System.out.println("Miembro: " + equi.getMiembro().getApellido() + " " + equi.getMiembro().getNombre()
+//                    + " DNI : " + equi.getMiembro().getDni() + "   Estado : " + equi.getMiembro().isEstado()
+//                    + " Fecha Incoroporacion : " + equi.getFechaIncorporacion() + " Proyecto : " + equi.getEquipo().getProyecto().getNombre()
+//                    + " Estado Proyecto : " + equi.getEquipo().getProyecto().isEstado() + " Id Incorporacion : " + equi.getIdIncorporacion());
+//        }
+//..........BUSCAR POR MIEMBRO//
+//        Miembro mie = new Miembro(13, 2323323, "Urquiza", "Pepe", true);
+//        IncorporacionData incorData1 = new IncorporacionData();
+//        System.out.println("\n\nIncorporaciones por Miembro:\n\n");
+//        for (Incorporacion miemb : incorData1.buscarPorMiembro(mie)) {
+//
+//            System.out.println("Equipo : " + miemb.getEquipo().getNombre() + "  Estado Equipo : " + miemb.getEquipo().isEstado()
+//            + " Fecha Incorporacion : " + miemb.getFechaIncorporacion() + " Proyecto : " + miemb.getEquipo().getProyecto().getNombre()
+//            + " Estado Proyecto : " + miemb.getEquipo().getProyecto().isEstado() + " Id Incorporacion : " + miemb.getIdIncorporacion());
+//        }
+//..........ELIMINAR//
+     
+        IncorporacionData incorData = new IncorporacionData();
+        incorData.eliminar(22);
+
     }
 }

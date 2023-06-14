@@ -123,7 +123,7 @@ public class EquipoData {
             ps.setInt(1, equipo.getProyecto().getIdProyecto());
             ps.setString(2, equipo.getNombre());
             ps.setDate(3, Date.valueOf(equipo.getFechaCreacion()));
-            ps.setBoolean(4, true);
+            ps.setBoolean(4, equipo.isEstado()); //Modificacion
             ps.setInt(5, equipo.getIdEquipo());
 
             if (ps.executeUpdate() == 1) {
@@ -138,7 +138,7 @@ public class EquipoData {
         }
     }
     public void bajaEquipo(String nombre) { //FUNCA
-        String sql = "UPDATE equipo SET estado=0 WHERE nombre=?";
+        String sql = "UPDATE equipo SET estado=0 WHERE nombre=?"; // Modificacion por nombre
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
@@ -153,7 +153,7 @@ public class EquipoData {
         }
     }
     public void altaEquipo(String nombre) { //FUNCA
-        String sql = "UPDATE equipo SET estado=1 WHERE nombre=?";
+        String sql = "UPDATE equipo SET estado=1 WHERE nombre=?"; // Modificacion por nombre
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
