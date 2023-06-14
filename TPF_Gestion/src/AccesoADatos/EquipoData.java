@@ -113,7 +113,7 @@ public class EquipoData {
         return equipos;
 
     }
-    public void modificarEquipo(Equipo equipo) {
+    public void modificarEquipo(Equipo equipo) { //FUNCA
 
         String sql = "UPDATE equipo SET IdProyecto=?,Nombre=?,FechaCreacion=?,Estado=? WHERE idEquipo=?";
 

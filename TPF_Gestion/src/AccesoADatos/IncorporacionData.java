@@ -48,7 +48,8 @@ public class IncorporacionData {
     }
 
     public ArrayList<Incorporacion> buscarPorEquipo(Equipo equipo) { //FUNCA
-        String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.Dni, miembro.Estado, incorporacion.FechaIncorporacion, proyecto.Nombre, proyecto.Estado, incorporacion.Idincorporacion\n"
+        String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.Dni, miembro.Estado, incorporacion.FechaIncorporacion,"
+                + " proyecto.Nombre, proyecto.Estado, incorporacion.Idincorporacion\n"
                 + "FROM incorporacion, miembro, equipo, proyecto\n"
                 + "WHERE equipo.IdEquipo = incorporacion.IdEquipo\n"
                 + "AND incorporacion.IdMiembro = miembro.IdMiembro\n"

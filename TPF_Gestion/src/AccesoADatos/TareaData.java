@@ -64,7 +64,7 @@ public class TareaData {
             ResultSet rs = ps.executeQuery();
 
             if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "No existe Equipo.");
+                JOptionPane.showMessageDialog(null, "No existe Tarea.");
             } else {
                 do {
                     Incorporacion incorporacion = new Incorporacion();
@@ -83,7 +83,7 @@ public class TareaData {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
 
         }
 
@@ -91,14 +91,14 @@ public class TareaData {
 
     }
 
-    public void finalizada(int id) {
+    public void finalizada(int id) { //FUNCA
         String sql = "UPDATE tarea SET  Estado=1 WHERE IdTarea=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
 
             if (ps.executeUpdate() == 1) {
-                JOptionPane.showMessageDialog(null, "Tarea Finalizado.");
+                JOptionPane.showMessageDialog(null, "Tarea Finalizada.");
             } else {
                 JOptionPane.showMessageDialog(null, "Tarea no existe");
             }
@@ -108,7 +108,7 @@ public class TareaData {
         }
     }
 
-    public void enProceso(int id) {
+    public void enProceso(int id) { //FUNCA
         String sql = "UPDATE tarea SET  Estado=0 WHERE IdTarea=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class TareaData {
         }
     }
 
-    public void modificarTarea(Tarea tarea) {
+    public void modificarTarea(Tarea tarea) { //FUNCA
         String sql = "UPDATE tarea SET IdIncorporacion = ?, Nombre = ?, FechaComienzo = ?, FechaCierre = ?, Estado = ? WHERE IdTarea = ?";
 
         try {

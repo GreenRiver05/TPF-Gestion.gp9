@@ -19,7 +19,7 @@ public class ProyectoData {
         con = ConexionGestion.getConexion();
     }
 
-    public void crearProyectos(Proyecto proyecto) {
+    public void crearProyectos(Proyecto proyecto) { //FUNCA
 
         String sql = "INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)";
 
@@ -47,7 +47,7 @@ public class ProyectoData {
         }
 
     }
-    public List<Proyecto> listarProyectos(boolean estado) {
+    public List<Proyecto> listarProyectos(boolean estado) { //FUNCA
         ArrayList<Proyecto> listaProyecto = new ArrayList();
 
         String sql = "SELECT * FROM proyecto WHERE estado =?";
@@ -79,7 +79,7 @@ public class ProyectoData {
         return listaProyecto;
 
     }
-    public Proyecto buscarPorNombre(String nombre) {
+    public Proyecto buscarPorNombre(String nombre) { //FUNCA
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
         Proyecto proyecto = new Proyecto();
         PreparedStatement ps;
@@ -106,7 +106,7 @@ public class ProyectoData {
         return proyecto;
 
     }
-    public void modificarProyecto(Proyecto proyecto) {
+    public void modificarProyecto(Proyecto proyecto) { //FUNCA
         String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE idProyecto=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -125,7 +125,7 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    public void finalizado(int id) {
+    public void finalizado(int id) { //FUNCA
         String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -141,7 +141,7 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-    public void enProceso(int id) {
+    public void enProceso(int id) { //FUNCA
         String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
