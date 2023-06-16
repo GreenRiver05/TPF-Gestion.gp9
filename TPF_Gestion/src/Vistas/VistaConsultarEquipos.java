@@ -34,7 +34,7 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(900, 700));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
-        jLabel1.setText("CONSULTAR EQUIPOS");
+        jLabel1.setText("VER PROYECTOS");
         jLabel1.setPreferredSize(new java.awt.Dimension(300, 40));
 
         jTable1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N

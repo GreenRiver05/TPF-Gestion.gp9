@@ -32,6 +32,8 @@ public class Proyecto {
     public Proyecto() {
     }
 
+    
+
     public int getIdProyecto() {
         return IdProyecto;
     }
