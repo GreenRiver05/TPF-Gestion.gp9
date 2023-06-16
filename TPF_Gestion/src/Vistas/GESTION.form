@@ -116,10 +116,13 @@
                 <Property name="text" type="java.lang.String" value="Seguimiento de Tareas"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+            <MenuItem class="javax.swing.JMenuItem" name="jmSeguimientoDeProyectos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Seguimientos de Proyectos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmSeguimientoDeProyectosActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmConsultarEquipos">
               <Properties>

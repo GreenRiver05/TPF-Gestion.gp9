@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TareaData {
@@ -67,6 +69,7 @@ public class TareaData {
                 JOptionPane.showMessageDialog(null, "No existe Tarea.");
             } else {
                 do {
+
                     Incorporacion incorporacion = new Incorporacion();
                     Tarea tarea = new Tarea();
                     Miembro miembro = new Miembro();
@@ -138,17 +141,62 @@ public class TareaData {
             ps.setDate(4, Date.valueOf(tarea.getCierre()));
             ps.setBoolean(5, tarea.isEstado());
             ps.setInt(6, tarea.getIdTarea());
-           
+
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Tarea Modificada con exito.");
             } else {
                 JOptionPane.showMessageDialog(null, "Tarea no se pudo modificar.");
             }
-           
+
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
     }
+
+    public ArrayList<Tarea> obtenerProyectoTarea(String nombre) {
+        ArrayList<Tarea> infoProyecto = new ArrayList();
+        
+        String sql = "SELECT tarea.Nombre,tarea.Estado,miembro.Nombre,miembro.Apellido,miembro.Estado,miembro.Dni\n" +
+"                FROM tarea,incorporacion,equipo,miembro,proyecto\n" +
+"                WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n" +
+"                AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n" +
+"                AND proyecto.Nombre =?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Proyecto no Tiene Tareas ni Equipo.");
+            } else {
+                do {
+
+                    Incorporacion incorporacion = new Incorporacion();
+                    Tarea tarea = new Tarea();
+                    Miembro miembro = new Miembro();
+                    
+                    tarea.setNombre(rs.getString(1));
+                    tarea.setEstado(rs.getBoolean(2));
+                    miembro.setNombre(rs.getString(3));
+                    miembro.setApellido(rs.getString(4));
+                    miembro.setEstado(rs.getBoolean(5));
+                    miembro.setDni(rs.getInt(6));
+                    incorporacion.setMiembro(miembro);
+                    tarea.setIncorporacion(incorporacion);
+                    infoProyecto.add(tarea);
+
+                } while (rs.next());
+            }
+
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+        return infoProyecto;
+
+    }
+
 }

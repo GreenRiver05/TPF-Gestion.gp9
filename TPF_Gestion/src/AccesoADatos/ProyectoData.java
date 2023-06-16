@@ -47,6 +47,7 @@ public class ProyectoData {
         }
 
     }
+
     public ArrayList<Proyecto> listarProyectos(boolean estado) { //FUNCA
         ArrayList<Proyecto> listaProyecto = new ArrayList();
 
@@ -79,7 +80,7 @@ public class ProyectoData {
         return listaProyecto;
 
     }
-    
+
     public Proyecto buscarPorNombre(String nombre) { //FUNCA
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
         Proyecto proyecto = new Proyecto();
@@ -107,6 +108,7 @@ public class ProyectoData {
         return proyecto;
 
     }
+
     public void modificarProyecto(Proyecto proyecto) { //FUNCA
         String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE idProyecto=?";
         try {
@@ -114,7 +116,7 @@ public class ProyectoData {
             ps.setString(1, proyecto.getNombre());
             ps.setString(2, proyecto.getDescripcion());
             ps.setDate(3, Date.valueOf(proyecto.getFechaInicial()));
-            ps.setBoolean(4,true);
+            ps.setBoolean(4, true);
             ps.setInt(5, proyecto.getIdProyecto());
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Proyecto modificado exitosamente.");
@@ -126,6 +128,7 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
+
     public void finalizado(int id) { //FUNCA
         String sql = "UPDATE proyecto SET  Estado=0 WHERE IdProyecto=?";
         try {
@@ -142,6 +145,7 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
+
     public void enProceso(int id) { //FUNCA
         String sql = "UPDATE proyecto SET  Estado=1 WHERE IdProyecto=?";
         try {
@@ -158,14 +162,15 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
     }
-  public ArrayList<Proyecto> listarTodosLosProyectos() { //FUNCA
+
+    public ArrayList<Proyecto> listarTodosLosProyectos() { //FUNCA
         ArrayList<Proyecto> listaTodosLosProyectos = new ArrayList();
 
         String sql = "SELECT * FROM proyecto WHERE ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-           ps.setInt(1, 1);
+            ps.setInt(1, 1);
             ps.executeUpdate();
             ResultSet rs = ps.executeQuery();
 
@@ -179,7 +184,7 @@ public class ProyectoData {
                     proyecto.setDescripcion(rs.getString(3));
 //                    proyecto.setFechaInicial(rs.getDate(4).toLocalDate());
                     proyecto.setEstado(rs.getBoolean(5));
-                    listaTodosLosProyectos.add(proyecto); 
+                    listaTodosLosProyectos.add(proyecto);
                 } while (rs.next());
             }
 
@@ -187,5 +192,6 @@ public class ProyectoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
 
-        return listaTodosLosProyectos;}
+        return listaTodosLosProyectos;
+    }
 }

@@ -76,10 +76,52 @@ public class EquipoData {
         return equipo;
 
     }
+//    public ArrayList<Equipo> listarEquiposSinRepetir(boolean estado) {
+//        ArrayList<Equipo> equipos = new ArrayList();
+//
+//        String sql = "SELECT* FROM equipo WHERE estado =? ORDER BY nombre";
+//
+//        PreparedStatement ps;
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setBoolean(1, estado);
+//            ResultSet rs = ps.executeQuery();
+//            if (!rs.next()) {
+//                JOptionPane.showMessageDialog(null, "No se encontraron equipos con el estado " + estado);
+//            } else {
+//                do {
+//
+//                    Equipo equipo = new Equipo();
+//                    Proyecto proyecto = new Proyecto();
+//
+//                    equipo.setIdEquipo(rs.getInt(1));
+//                    proyecto.setIdProyecto(rs.getInt("idProyecto"));
+//                    equipo.setProyecto(proyecto);
+//                    equipo.setNombre(rs.getString(3));
+//                    equipo.setFechaCreacion(rs.getDate(4).toLocalDate());
+//                    equipo.setEstado(rs.getBoolean(5));
+//
+//                    for (Equipo buscar : equipos) {
+//
+//                        if (equipo.getNombre().equals(buscar.getNombre())) {
+//                            equipos.add(equipo);
+//                        }
+//                    }
+//
+//                } while (rs.next());
+//
+//            }
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo " + ex.getMessage());
+//        }
+//        return equipos;
+//    }
+    
     public ArrayList<Equipo> listarEquipos(boolean estado) { //FUNCA
         ArrayList<Equipo> equipos = new ArrayList();
 
-        String sql = "SELECT* FROM equipo WHERE estado =? ORDER BY nombre";
+        String sql = "SELECT* FROM equipo,proyecto WHERE equipo.estado =? AND equipo.IdProyecto = proyecto.IdProyecto ORDER BY equipo.nombre"; //MODIFICADOOOOOOOOOOOOOOOOOOOOOOOOO
 
         PreparedStatement ps;
         try {
@@ -96,6 +138,7 @@ public class EquipoData {
 
                     equipo.setIdEquipo(rs.getInt(1));
                     proyecto.setIdProyecto(rs.getInt("idProyecto"));
+                    proyecto.setNombre(rs.getString(7)); //AGREGADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
                     equipo.setProyecto(proyecto);
                     equipo.setNombre(rs.getString(3));
                     equipo.setFechaCreacion(rs.getDate(4).toLocalDate());

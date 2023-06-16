@@ -10,10 +10,10 @@ public class GESTION extends javax.swing.JFrame {
 
     public GESTION() {
         initComponents();
-         setLocationRelativeTo(null);
-         //this.setExtendedState(GESTION.MAXIMIZED_BOTH);//MAXIMIXAR VENTANA
-         this.setResizable(false);// NO ES RESIZABLE
-   
+        setLocationRelativeTo(null);
+        //this.setExtendedState(GESTION.MAXIMIZED_BOTH);//MAXIMIXAR VENTANA
+        this.setResizable(false);// NO ES RESIZABLE
+
     }
 
     @SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public class GESTION extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jmSeguimientoDeProyectos = new javax.swing.JMenuItem();
         jmConsultarEquipos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,8 +126,13 @@ public class GESTION extends javax.swing.JFrame {
         jMenuItem5.setText("Seguimiento de Tareas");
         MenuIncorporacion.add(jMenuItem5);
 
-        jMenuItem6.setText("Seguimientos de Proyectos");
-        MenuIncorporacion.add(jMenuItem6);
+        jmSeguimientoDeProyectos.setText("Seguimientos de Proyectos");
+        jmSeguimientoDeProyectos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSeguimientoDeProyectosActionPerformed(evt);
+            }
+        });
+        MenuIncorporacion.add(jmSeguimientoDeProyectos);
 
         jmConsultarEquipos.setText("Consultar Equipos");
         jmConsultarEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -156,20 +161,25 @@ public class GESTION extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmCrearProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCrearProyectoActionPerformed
-       jDesktopPane1.removeAll();
+        jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
         VistaCrearProyecto fProyecto = new VistaCrearProyecto();
         jDesktopPane1.add(fProyecto);
         fProyecto.setVisible(true);
-                                     
+
     }//GEN-LAST:event_jmCrearProyectoActionPerformed
 
     private void jmCrearMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCrearMiembrosActionPerformed
-        
+
     }//GEN-LAST:event_jmCrearMiembrosActionPerformed
 
     private void jmConsultarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultarEquiposActionPerformed
-        
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaConsultarEquipos consultaEquipos = new VistaConsultarEquipos();
+        jDesktopPane1.add(consultaEquipos);
+        consultaEquipos.setVisible(true);
+
     }//GEN-LAST:event_jmConsultarEquiposActionPerformed
 
     private void jmVerProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVerProyectosActionPerformed
@@ -180,24 +190,28 @@ public class GESTION extends javax.swing.JFrame {
         fProyecto.setVisible(true);
     }//GEN-LAST:event_jmVerProyectosActionPerformed
 
+    private void jmSeguimientoDeProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSeguimientoDeProyectosActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaSeguimientoDeProyecto seguimientoProyecto = new VistaSeguimientoDeProyecto();
+        jDesktopPane1.add(seguimientoProyecto);
+        seguimientoProyecto.setVisible(true);
+    }//GEN-LAST:event_jmSeguimientoDeProyectosActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //UIManager.setLookAndFeel(new AcrylLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new GraphiteLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new McWinLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new NoireLookAndFeel());  // plantillas 
                     UIManager.setLookAndFeel(new TextureLookAndFeel());  // plantillas 
                 } catch (UnsupportedLookAndFeelException ex) {
                     Logger.getLogger(GESTION.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 new GESTION().setVisible(true);
-               
+
             }
-            
+
         });
     }
 
@@ -211,11 +225,11 @@ public class GESTION extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jmConsultarEquipos;
     private javax.swing.JMenuItem jmCrearEquipos;
     private javax.swing.JMenuItem jmCrearMiembros;
     private javax.swing.JMenuItem jmCrearProyecto;
+    private javax.swing.JMenuItem jmSeguimientoDeProyectos;
     private javax.swing.JMenuItem jmVerEquipos;
     private javax.swing.JMenuItem jmVerMiembros;
     private javax.swing.JMenuItem jmVerProyectos;
