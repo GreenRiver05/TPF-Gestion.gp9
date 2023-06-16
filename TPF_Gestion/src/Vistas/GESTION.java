@@ -93,6 +93,11 @@ public class GESTION extends javax.swing.JFrame {
         MenuMiembros.add(jmCrearMiembros);
 
         jmVerMiembros.setText("Ver Miembros");
+        jmVerMiembros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVerMiembrosActionPerformed(evt);
+            }
+        });
         MenuMiembros.add(jmVerMiembros);
 
         jMenuBar1.add(MenuMiembros);
@@ -180,7 +185,11 @@ public class GESTION extends javax.swing.JFrame {
     }//GEN-LAST:event_jmCrearProyectoActionPerformed
 
     private void jmCrearMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCrearMiembrosActionPerformed
-
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaCrearMiembro fMiembro = new VistaCrearMiembro();
+        jDesktopPane1.add(fMiembro);
+        fMiembro.setVisible(true);
     }//GEN-LAST:event_jmCrearMiembrosActionPerformed
 
     private void jmConsultarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultarEquiposActionPerformed
@@ -223,6 +232,14 @@ public class GESTION extends javax.swing.JFrame {
         jDesktopPane1.add(verEquipos);
         verEquipos.setVisible(true);
     }//GEN-LAST:event_jmVerEquiposActionPerformed
+
+    private void jmVerMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVerMiembrosActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaVerMiembro fMiembro = new VistaVerMiembro();
+        jDesktopPane1.add(fMiembro);
+        fMiembro.setVisible(true);
+    }//GEN-LAST:event_jmVerMiembrosActionPerformed
 
     public static void main(String args[]) {
 

@@ -176,6 +176,37 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
+          public ArrayList<Miembro> listarTodosLosMiembros() { //FUNCA
+        ArrayList<Miembro> listaTodosLosMiembros = new ArrayList();
+
+        String sql = "SELECT * FROM miembro WHERE ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, 1);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No existen Miembros.");
+            } else {
+                do {
+                    Miembro mie = new Miembro();
+                    mie.setIdMiembro(rs.getInt(1));
+                    mie.setDni(rs.getInt(2));
+                    mie.setApellido(rs.getString(3));
+                    mie.setNombre(rs.getString(4));
+                    mie.setEstado(rs.getBoolean(5));
+                    listaTodosLosMiembros.add(mie);
+                } while (rs.next());
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
+        }
+
+        return listaTodosLosMiembros;
+    }
 
 
 }
