@@ -104,9 +104,19 @@ public class GESTION extends javax.swing.JFrame {
         MenuEquipos.setPreferredSize(new java.awt.Dimension(80, 25));
 
         jmCrearEquipos.setText("Crear Equipos");
+        jmCrearEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCrearEquiposActionPerformed(evt);
+            }
+        });
         MenuEquipos.add(jmCrearEquipos);
 
         jmVerEquipos.setText("Ver Equipos");
+        jmVerEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmVerEquiposActionPerformed(evt);
+            }
+        });
         MenuEquipos.add(jmVerEquipos);
 
         jMenuBar1.add(MenuEquipos);
@@ -197,6 +207,22 @@ public class GESTION extends javax.swing.JFrame {
         jDesktopPane1.add(seguimientoProyecto);
         seguimientoProyecto.setVisible(true);
     }//GEN-LAST:event_jmSeguimientoDeProyectosActionPerformed
+
+    private void jmCrearEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCrearEquiposActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaFormularioEquipo crearEquipos = new VistaFormularioEquipo();
+        jDesktopPane1.add(crearEquipos);
+        crearEquipos.setVisible(true);
+    }//GEN-LAST:event_jmCrearEquiposActionPerformed
+
+    private void jmVerEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmVerEquiposActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaVerEquipos verEquipos = new VistaVerEquipos();
+        jDesktopPane1.add(verEquipos);
+        verEquipos.setVisible(true);
+    }//GEN-LAST:event_jmVerEquiposActionPerformed
 
     public static void main(String args[]) {
 

@@ -243,9 +243,9 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-       
-       jtNombre.setText("NOMBRE DE PROYECTO");
-       jtDescripcion.setText("DESCRIPCION");
+
+        jtNombre.setText("NOMBRE DE PROYECTO");
+        jtDescripcion.setText("DESCRIPCION");
         CALENDARIO.setDateFormatString("");
 //        jcbActivo.setSelected(false);
 //        jcbInactivo.setSelected(false);
@@ -260,27 +260,23 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         try {
             ProyectoData data = new ProyectoData();
             Proyecto proyecto = new Proyecto();
-            String nombre= jtNombre.getText();
+            String nombre = jtNombre.getText();
             proyecto = data.buscarPorNombre(nombre);
             jtNombre.setText(proyecto.getNombre());
             jtDescripcion.setText(proyecto.getDescripcion());
             CALENDARIO.setDate(java.sql.Date.valueOf(proyecto.getFechaInicial()));
-            Jid.setText(proyecto.getIdProyecto()+"");
-        
+            Jid.setText(proyecto.getIdProyecto() + "");
+
             if (proyecto.isEstado()) {
                 jcbActivo.setSelected(true);
                 jcbInactivo.setSelected(false);
-            }else {
+            } else {
                 jcbActivo.setSelected(false);
                 jcbInactivo.setSelected(true);
             }
-        
+
         } catch (Exception e) {
         }
-
-           
-
-       
 
 
     }//GEN-LAST:event_jbBuscarActionPerformed
@@ -288,7 +284,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
 
         try {
-           int id=Integer.parseInt(Jid.getText());
+            int id = Integer.parseInt(Jid.getText());
             String nombre = jtNombre.getText();
             String descripcion = jtDescripcion.getText();
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
@@ -301,7 +297,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
 //                estado = false;
 //            }
 
-            Proyecto proyecto = new Proyecto(id,nombre,descripcion,fechainicial,estado);
+            Proyecto proyecto = new Proyecto(id, nombre, descripcion, fechainicial, estado);
             ProyectoData data = new ProyectoData();
             data.modificarProyecto(proyecto);
 
@@ -315,7 +311,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
 
         try {
-           
+
             String nombre = jtNombre.getText();
             String descripcion = jtDescripcion.getText();
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
@@ -327,37 +323,16 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
 //            } else if (jcbInactivo.isSelected() == false) {
 //                estado = false;
 //            }
-           Proyecto proyecto = new Proyecto(nombre,descripcion,fechainicial,estado);
-           ProyectoData data = new ProyectoData();
-           data.crearProyectos(proyecto);
-           
-            
+            Proyecto proyecto = new Proyecto(nombre, descripcion, fechainicial, estado);
+            ProyectoData data = new ProyectoData();
+            data.crearProyectos(proyecto);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Por favor ingresa un nombre al proyecto");
         }
 
     }//GEN-LAST:event_jbRegistrarActionPerformed
- public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //UIManager.setLookAndFeel(new AcrylLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new GraphiteLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new McWinLookAndFeel());  // plantillas 
-                    //UIManager.setLookAndFeel(new NoireLookAndFeel());  // plantillas 
-                    UIManager.setLookAndFeel(new TextureLookAndFeel());  // plantillas 
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(GESTION.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                new GESTION().setVisible(true);
-               
-            }
-            
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser CALENDARIO;
@@ -378,6 +353,3 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 }
-
-
-

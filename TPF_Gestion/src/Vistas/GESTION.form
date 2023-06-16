@@ -80,11 +80,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear Equipos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCrearEquiposActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmVerEquipos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver Equipos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmVerEquiposActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
