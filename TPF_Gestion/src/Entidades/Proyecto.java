@@ -32,8 +32,6 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    
-
     public int getIdProyecto() {
         return IdProyecto;
     }
@@ -76,7 +74,7 @@ public class Proyecto {
 
     @Override
     public String toString() {
-        return "Proyecto{" + "IdProyecto=" + IdProyecto + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fechaInicial=" + fechaInicial + ", estado=" + estado + '}';
+        return  nombre;
     }
 
     

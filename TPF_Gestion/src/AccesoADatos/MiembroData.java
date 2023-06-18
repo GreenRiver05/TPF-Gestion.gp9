@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class MiembroData {
@@ -44,6 +46,7 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
+
     public Miembro buscarMiembroDNI(int dni) {//FUNCA
         String sql = "SELECT idMiembro,Dni, Apellido, Nombre, Estado FROM miembro WHERE Dni=?";
         Miembro miembro = null;
@@ -69,6 +72,7 @@ public class MiembroData {
 
         return miembro;
     }
+
     public Miembro buscarMiembroPorApellido(String Apellido) { //FUNCA
         String sql = "SELECT * FROM `miembro` WHERE Apellido=?";
         Miembro miembro = null;
@@ -96,6 +100,41 @@ public class MiembroData {
 
         return miembro;
     }
+
+    public ArrayList<Miembro> buscarMiembrosXProyecto(String nombre) { //FUNCA
+        String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.dni\n"
+                + "FROM incorporacion, miembro, equipo, proyecto\n"
+                + "WHERE equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "AND incorporacion.IdMiembro = miembro.IdMiembro\n"
+                + "and equipo.IdProyecto = proyecto.IdProyecto\n"
+                + "AND proyecto.nombre = ?";
+
+        ArrayList<Miembro> miembroXEquipo = new ArrayList();
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                do {
+
+                    Miembro miembro = new Miembro();
+                    miembro.setNombre(rs.getString(1));
+                    miembro.setApellido(rs.getString(2));
+                    miembro.setDni(rs.getInt(3));
+                    miembroXEquipo.add(miembro);
+
+                } while (rs.next());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron Miembros para el proyecto");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
+        }
+        return miembroXEquipo;
+    }
+
     public ArrayList<Miembro> listarMiembrosPorEstado(boolean estado) {//FUNCA
         ArrayList<Miembro> miembross = new ArrayList();
         String sql = "SELECT* FROM miembro WHERE Estado =? ORDER BY Apellido";
@@ -124,6 +163,76 @@ public class MiembroData {
         return miembross;
 
     }
+
+    public ArrayList<Miembro> listarMiembrosXEquipo(String nombre) {//FUNCA
+        ArrayList<Miembro> miembross = new ArrayList();
+        String sql = "SELECT DISTINCTROW miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado\n"
+                + "                FROM incorporacion,miembro,equipo\n"
+                + "                WHERE equipo.Nombre = ?\n"
+                + "                AND incorporacion.IdMiembro=miembro.IdMiembro\n"
+                + "                AND equipo.IdEquipo = incorporacion.IdEquipo";
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron miembros con el estado ");
+            } else {
+                do {
+                    Miembro miembro = new Miembro();
+                    miembro.setDni(rs.getInt("Dni"));
+                    miembro.setNombre(rs.getString("Nombre"));
+                    miembro.setApellido(rs.getString("Apellido"));
+                    miembro.setEstado(rs.getBoolean("Estado"));
+                    miembross.add(miembro);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
+        }
+        return miembross;
+
+    }
+
+    public ArrayList<Miembro> listarMiembroXEquipoYProyecto(String equipo, String proyecto) {
+        ArrayList<Miembro> miembros = new ArrayList();
+        String sql = "SELECT DISTINCTROW miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado\n"
+                + "                FROM incorporacion,miembro,equipo,proyecto\n"
+                + "                WHERE equipo.Nombre =? AND proyecto.Nombre =?\n"
+                + "                AND incorporacion.IdMiembro=miembro.IdMiembro\n"
+                + "                AND equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "                AND proyecto.IdProyecto = equipo.IdProyecto";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, equipo);
+            ps.setString(2, proyecto);
+            ResultSet rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron miembros con el estado ");
+                
+            } else {
+                do {
+                    
+                    Miembro miembro = new Miembro();
+                    miembro.setDni(rs.getInt("Dni"));
+                    miembro.setNombre(rs.getString("Nombre"));
+                    miembro.setApellido(rs.getString("Apellido"));
+                    miembro.setEstado(rs.getBoolean("Estado"));
+                    miembros.add(miembro);
+                    
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
+        }
+        return miembros;
+
+    }
+
     public void bajaMiembro(int dni) { //FUNCA
         String sql = "UPDATE miembro SET Estado=0 WHERE Dni=?"; //CAMBIAMOS POR DNI
         try {
@@ -139,6 +248,7 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
+
     public void altaMiembro(int dni) {//FUNCA
 
         String sql = "UPDATE miembro SET Estado=1 WHERE Dni=?"; //CAMBIAMOS POR DNI
@@ -156,6 +266,7 @@ public class MiembroData {
         }
 
     }
+
     public void modificarMiembro(Miembro miembro) {//FUNCA
         String sql = "UPDATE miembro SET Dni=? ,Apellido=?, Nombre=?, Estado=? WHERE idMiembro=?";
 
@@ -176,37 +287,5 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
         }
     }
-          public ArrayList<Miembro> listarTodosLosMiembros() { //FUNCA
-        ArrayList<Miembro> listaTodosLosMiembros = new ArrayList();
-
-        String sql = "SELECT * FROM miembro WHERE ?";
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ps.setInt(1, 1);
-            ps.executeUpdate();
-            ResultSet rs = ps.executeQuery();
-            if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "No existen Miembros.");
-            } else {
-                do {
-                    Miembro mie = new Miembro();
-                    mie.setIdMiembro(rs.getInt(1));
-                    mie.setDni(rs.getInt(2));
-                    mie.setApellido(rs.getString(3));
-                    mie.setNombre(rs.getString(4));
-                    mie.setEstado(rs.getBoolean(5));
-                    listaTodosLosMiembros.add(mie);
-                } while (rs.next());
-            }
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro" + ex.getMessage());
-        }
-
-        return listaTodosLosMiembros;
-    }
-
 
 }

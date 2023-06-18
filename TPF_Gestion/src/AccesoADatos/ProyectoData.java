@@ -55,7 +55,7 @@ public class ProyectoData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, estado);
+            ps.setBoolean(1, true);
             ps.executeUpdate();
             ResultSet rs = ps.executeQuery();
 
@@ -67,7 +67,7 @@ public class ProyectoData {
                     proyecto.setIdProyecto(rs.getInt(1));
                     proyecto.setNombre(rs.getString(2));
                     proyecto.setDescripcion(rs.getString(3));
-//                    proyecto.setFechaInicial(rs.getDate("Fechainicial").toLocalDate());
+                    proyecto.setFechaInicial(rs.getDate(4).toLocalDate());
                     proyecto.setEstado(rs.getBoolean(5));
                     listaProyecto.add(proyecto);
                 } while (rs.next());
@@ -116,7 +116,7 @@ public class ProyectoData {
             ps.setString(1, proyecto.getNombre());
             ps.setString(2, proyecto.getDescripcion());
             ps.setDate(3, Date.valueOf(proyecto.getFechaInicial()));
-            ps.setBoolean(4, true);
+            ps.setBoolean(4, proyecto.isEstado());
             ps.setInt(5, proyecto.getIdProyecto());
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Proyecto modificado exitosamente.");
@@ -165,9 +165,7 @@ public class ProyectoData {
 
     public ArrayList<Proyecto> listarTodosLosProyectos() { //FUNCA
         ArrayList<Proyecto> listaTodosLosProyectos = new ArrayList();
-
         String sql = "SELECT * FROM proyecto WHERE ?";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, 1);
@@ -187,11 +185,32 @@ public class ProyectoData {
                     listaTodosLosProyectos.add(proyecto);
                 } while (rs.next());
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
         }
+        return listaTodosLosProyectos;
+    }
 
+    public ArrayList<Proyecto> listarProyectoPorEquipo(String nombre) {
+        ArrayList<Proyecto> listaTodosLosProyectos = new ArrayList();
+        String sql = "SELECT DISTINCTROW proyecto.Nombre FROM proyecto,equipo WHERE equipo.Nombre = ? AND equipo.IdProyecto = proyecto.IdProyecto";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No existen Proyectos.");
+            } else {
+                do {
+                    Proyecto proyecto = new Proyecto();
+                    proyecto.setNombre(rs.getString(1));
+                    listaTodosLosProyectos.add(proyecto);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Proyecto" + ex.getMessage());
+        }
         return listaTodosLosProyectos;
     }
 }

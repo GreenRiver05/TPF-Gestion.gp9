@@ -8,8 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TareaData {
@@ -50,18 +48,19 @@ public class TareaData {
         }
     }
 
-    public ArrayList<Tarea> consultaInfoEquipo(int idEquipo) { //FUNCA
+    public ArrayList<Tarea> consultaInfoEquipo(String nombre) { //FUNCA
         ArrayList<Tarea> infoEquipo = new ArrayList();
 
         String sql = "SELECT miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado, tarea.Nombre \n"
-                + "FROM incorporacion,miembro,tarea\n"
-                + "WHERE incorporacion.IdEquipo =?\n"
-                + "AND incorporacion.IdMiembro=miembro.IdMiembro\n"
-                + "AND incorporacion.IdIncorporacion=tarea.IdIncorporacion";
+                + "                FROM incorporacion,miembro,tarea,equipo\n"
+                + "                WHERE equipo.Nombre = ?\n"
+                + "                AND incorporacion.IdMiembro=miembro.IdMiembro\n"
+                + "                AND incorporacion.IdIncorporacion=tarea.IdIncorporacion\n"
+                + "                AND equipo.IdEquipo = incorporacion.IdEquipo";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idEquipo);
+            ps.setString(1, nombre);
             ps.executeUpdate();
             ResultSet rs = ps.executeQuery();
 
@@ -155,14 +154,14 @@ public class TareaData {
         }
     }
 
-    public ArrayList<Tarea> obtenerProyectoTarea(String nombre) {
+    public ArrayList<Tarea> obtenerTareasXProyectos(String nombre) {
         ArrayList<Tarea> infoProyecto = new ArrayList();
-        
-        String sql = "SELECT tarea.Nombre,tarea.Estado,miembro.Nombre,miembro.Apellido,miembro.Estado,miembro.Dni\n" +
-"                FROM tarea,incorporacion,equipo,miembro,proyecto\n" +
-"                WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n" +
-"                AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n" +
-"                AND proyecto.Nombre =?";
+
+        String sql = "SELECT tarea.Nombre,tarea.Estado,miembro.Nombre,miembro.Apellido,miembro.Estado,miembro.Dni\n"
+                + "                FROM tarea,incorporacion,equipo,miembro,proyecto\n"
+                + "                WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "                AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n"
+                + "                AND proyecto.Nombre =?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -178,7 +177,7 @@ public class TareaData {
                     Incorporacion incorporacion = new Incorporacion();
                     Tarea tarea = new Tarea();
                     Miembro miembro = new Miembro();
-                    
+
                     tarea.setNombre(rs.getString(1));
                     tarea.setEstado(rs.getBoolean(2));
                     miembro.setNombre(rs.getString(3));
@@ -193,10 +192,123 @@ public class TareaData {
             }
 
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
         return infoProyecto;
 
+    }
+
+    public ArrayList<Tarea> obtenerTareasXMiembrosYProyecto(int dni, String proyecto) {
+        ArrayList<Tarea> infoProyecto = new ArrayList();
+
+        String sql = "SELECT tarea.Nombre,tarea.Estado\n"
+                + "                FROM tarea,incorporacion,equipo,miembro,proyecto\n"
+                + "                WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "                AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n"
+                + "                AND miembro.dni = ? AND proyecto.Nombre = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ps.setString(2, proyecto);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Proyecto no Tiene Tareas ni Equipo.");
+            } else {
+                do {
+
+                    Tarea tarea = new Tarea();
+                    tarea.setNombre(rs.getString(1));
+                    tarea.setEstado(rs.getBoolean(2));
+                    infoProyecto.add(tarea);
+
+                } while (rs.next());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+        return infoProyecto;
+
+    }
+
+    public ArrayList<Tarea> obtenerTareasXEqiposYProyecto(String proyecto, String equipo, int dni) {
+        ArrayList<Tarea> tareas = new ArrayList();
+
+        String sql = "SELECT tarea.Nombre\n"
+                + "FROM tarea,incorporacion,equipo,miembro,proyecto\n"
+                + "WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n"
+                + "AND proyecto.Nombre = ? AND equipo.Nombre = ? AND miembro.Dni = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, proyecto);
+            ps.setString(2, equipo);
+            ps.setInt(3, dni);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Proyecto no Tiene Tareas ni Equipo.");
+            } else {
+                do {
+
+                    Tarea tarea = new Tarea();
+
+                    tarea.setNombre(rs.getString(1));
+                    tareas.add(tarea);
+
+                } while (rs.next());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+        return tareas;
+    }
+
+    public ArrayList<Tarea> obtenerTareasXMiembrosYEquipo(String equipoNombre, int dni) {
+        ArrayList<Tarea> tareas = new ArrayList();
+
+        String sql = "SELECT tarea.Nombre, proyecto.Nombre\n"
+                + "FROM tarea,incorporacion,equipo,miembro,proyecto\n"
+                + "WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n"
+                + "AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n"
+                + "AND equipo.Nombre = ? AND miembro.Dni = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, equipoNombre);
+            ps.setInt(2, dni);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "Miembro no Tiene Tareas en este Equipo.");
+            } else {
+                do {
+
+                    Tarea tarea = new Tarea();
+                    Proyecto proyecto = new Proyecto();
+                    Equipo equipo = new Equipo();
+                    Incorporacion incorporacion = new Incorporacion();
+
+                    proyecto.setNombre(rs.getString(2));
+                    equipo.setProyecto(proyecto);
+                    incorporacion.setEquipo(equipo);
+                    tarea.setIncorporacion(incorporacion);
+                    tarea.setNombre(rs.getString(1));
+                    tareas.add(tarea);
+
+                } while (rs.next());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
+        }
+        return tareas;
     }
 
 }
