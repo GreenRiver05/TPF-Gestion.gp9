@@ -147,6 +147,7 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
         jbSalir.setFont(new java.awt.Font("Engravers MT", 1, 17)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 255));
         jbSalir.setText("SALIR");
+        jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 40));
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +156,7 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
         });
 
         jrFinalizado.setText("Finalizado");
+        jrFinalizado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jrFinalizado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrFinalizadoActionPerformed(evt);
@@ -162,6 +164,7 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
         });
 
         jrEnProceso.setText("En proceso");
+        jrEnProceso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jrEnProceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrEnProcesoActionPerformed(evt);
@@ -213,6 +216,7 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
         }
 
         JrTodos.setText("Todos los proyectos");
+        JrTodos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JrTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JrTodosActionPerformed(evt);

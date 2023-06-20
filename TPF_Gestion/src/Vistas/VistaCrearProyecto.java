@@ -7,16 +7,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
+import sun.font.SunFontManager;
 
 public class VistaCrearProyecto extends javax.swing.JInternalFrame {
-
+    
     public VistaCrearProyecto() {
         initComponents();
         setLocation(200, 15);
         jtId.setVisible(false);
-
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -80,6 +81,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbBuscar.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jbBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jbBuscar.setText("BUSCAR");
+        jbBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbBuscar.setEnabled(false);
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +115,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbNuevo.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jbNuevo.setForeground(new java.awt.Color(255, 255, 255));
         jbNuevo.setText("NUEVO");
+        jbNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbNuevo.setEnabled(false);
         jbNuevo.setPreferredSize(new java.awt.Dimension(100, 40));
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +129,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         jbRegistrar.setText("REGISTRAR");
         jbRegistrar.setBorderPainted(false);
+        jbRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbRegistrar.setEnabled(false);
         jbRegistrar.setPreferredSize(new java.awt.Dimension(100, 32));
         jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +142,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbSalir.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 255));
         jbSalir.setText("SALIR");
+        jbSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 40));
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +154,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbModificar.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jbModificar.setForeground(new java.awt.Color(255, 255, 255));
         jbModificar.setText("modificar");
+        jbModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbModificar.setEnabled(false);
         jbModificar.setPreferredSize(new java.awt.Dimension(100, 32));
         jbModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -281,12 +287,10 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-
+        
         jtNombre.setText("NOMBRE DE PROYECTO");
         jtDescripcion.setText("DESCRIPCION");
         CALENDARIO.setDateFormatString("");
-//        jcbActivo.setSelected(false);
-//        jcbInactivo.setSelected(false);
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -294,7 +298,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-
+        
         try {
             ProyectoData data = new ProyectoData();
             Proyecto proyecto = new Proyecto();
@@ -304,7 +308,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             jtDescripcion.setText(proyecto.getDescripcion());
             CALENDARIO.setDate(java.sql.Date.valueOf(proyecto.getFechaInicial()));
             jtId.setText(proyecto.getIdProyecto() + "");
-
+            
             if (proyecto.isEstado()) {
                 jcbActivo.setSelected(true);
                 jcbInactivo.setSelected(false);
@@ -312,13 +316,15 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
                 jcbActivo.setSelected(false);
                 jcbInactivo.setSelected(true);
             }
-
         } catch (Exception e) {
         }
+        
+        jbModificar.setEnabled(true);
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-
+        
         try {
             int id = Integer.parseInt(jtId.getText());
             String nombre = jtNombre.getText();
@@ -327,19 +333,15 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             String fecha = formatoFecha.format(CALENDARIO.getDate());
             LocalDate fechainicial = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             boolean estado = true;
-//            if (jcbActivo.isSelected() == true) {
-//                estado = true;
-//            } else if (jcbInactivo.isSelected() == false) {
-//                estado = false;
-//            }
-
+            
             Proyecto proyecto = new Proyecto(id, nombre, descripcion, fechainicial, estado);
             ProyectoData data = new ProyectoData();
             data.modificarProyecto(proyecto);
-
+            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Por favor ingresa un nombre al proyecto");
         }
+
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
@@ -350,67 +352,42 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             String fecha = formatoFecha.format(CALENDARIO.getDate());
             LocalDate fechainicial = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             boolean estado = true;
-//            if (jcbActivo.isSelected() == true) {
-//                estado = true;
-//            } else if (jcbInactivo.isSelected() == false) {
-//                estado = false;
-//            }
             Proyecto proyecto = new Proyecto(nombre, descripcion, fechainicial, estado);
             ProyectoData data = new ProyectoData();
             data.crearProyectos(proyecto);
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Por favor ingresa un nombre al proyecto");
+            jlErrorFecha.setText("");
+            jbRegistrar.setEnabled(false);
+            jbNuevo.setEnabled(true);
+        } catch (NullPointerException ex) {
+            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA");
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
-    private void validaciones() {
-        int aux = 0;
-        try {
-            if (jtNombre.getText().equals("")) {
-                jlErrorNombre.setText("DEBES COLOCAR UN NOMBRE");
-                jtDescripcion.setEnabled(false);
-                if (aux == 0) {
-                    jtNombre.requestFocus();
-                }
-                aux++;
-            } else {
-                jlErrorNombre.setText("");
-                jtDescripcion.setEnabled(true);
 
-            }
-
-            if (jtDescripcion.getText().equals("")) {
-                jlErrorDescripcion.setText("DEBES COLOCAR UNA DESCRIPCION");
-                CALENDARIO.setEnabled(false);
-                if (aux == 0) {
-                    jtDescripcion.requestFocus();
-                }
-                aux++;
-            } else {
-                jtDescripcion.setText("");
-                CALENDARIO.setEnabled(true);
-
-            }
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-            String fecha = formatoFecha.format(CALENDARIO.getDate());
-            LocalDate fechainicial = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            System.out.println(fechainicial);
-        } catch (Exception ex) {
-            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA");
-            if (aux == 0) {
-                CALENDARIO.requestFocus();
-            }
-            aux++;
-
-        }
-
-    }
     private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
-        validaciones();
+        if (jtNombre.getText().equals("")) {
+            jlErrorNombre.setText("DEBES COLOCAR UN NOMBRE");
+            jtDescripcion.setEnabled(false);
+            jbBuscar.setEnabled(false);
+        } else {
+            jlErrorNombre.setText("");
+            jtDescripcion.setEnabled(true);
+            jbBuscar.setEnabled(true);
+            
+        }
     }//GEN-LAST:event_jtNombreActionPerformed
 
     private void jtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDescripcionActionPerformed
-
+        if (jtDescripcion.getText().equals("")) {
+            jlErrorDescripcion.setText("DEBES COLOCAR UNA DESCRIPCION");
+            CALENDARIO.setEnabled(false);
+            jbRegistrar.setEnabled(true);
+            
+        } else {
+            jlErrorDescripcion.setText("");
+            CALENDARIO.setEnabled(true);
+            jbRegistrar.setEnabled(true);
+            
+        }
     }//GEN-LAST:event_jtDescripcionActionPerformed
 
     private void jcbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbActivoActionPerformed
@@ -418,12 +395,12 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbActivoActionPerformed
 
     private void jtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNombreFocusGained
-        jtNombre.setText("");
+        
 
     }//GEN-LAST:event_jtNombreFocusGained
 
     private void jtDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtDescripcionFocusGained
-        jtDescripcion.setText("");
+        
 
     }//GEN-LAST:event_jtDescripcionFocusGained
 
