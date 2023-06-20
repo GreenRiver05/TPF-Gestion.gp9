@@ -5,123 +5,146 @@ import Entidades.Proyecto;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableColumn;
 
 public class VistaVerProyectos extends javax.swing.JInternalFrame {
 
-  private DefaultTableModel modeloTabla = new DefaultTableModel() {
-        
+    private DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-  
+
     private ProyectoData proyecto = new ProyectoData();
-   
     private ArrayList<Proyecto> listaTodosLosProyectos = new ArrayList();
     private ArrayList<Proyecto> listaProyecto = new ArrayList();
-   
-
-    
 
     private void armarCabecera() {
         ArrayList<Object> columnas = new ArrayList();
-   
-        columnas.add("Nombre");
-        columnas.add("Descripcion");
-//         columnas.add("Fecha Inicial");
-        columnas.add("Estado");
-        for (Object c : columnas) { //se recorre el arrays para ir llenando los nombres de las columnas
+        columnas.add("NOMBRE");
+        columnas.add("DESCRIPCION");
+        columnas.add("FECHA INICIAL");
+        columnas.add("ESTADO");
+        for (Object c : columnas) { 
             modeloTabla.addColumn(c);
         }
         jTable1.setModel(modeloTabla);
+//----------------------------------AGREGADO--------------------------------------------------------//
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(327);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(111);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(140);
 
-          
-
-
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false); 
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
+//----------------------------------AGREGADO--------------------------------------------------------//
     }
 
     private void llenarTabla() {
         borrarFilas();
-     
 
         if (JrTodos.isSelected() == true) {
-           listaTodosLosProyectos=proyecto.listarTodosLosProyectos();
+            listaTodosLosProyectos = proyecto.listarTodosLosProyectos();
             for (Proyecto p : listaTodosLosProyectos) {
-                modeloTabla.addRow(new Object[]{p.getNombre(),p.getDescripcion(),p.isEstado()});
+                if (p.isEstado()) {
+                    modeloTabla.addRow(new Object[]{p.getNombre(), p.getDescripcion(), p.getFechaInicial(), "EN PROCESO"});  /// MODIFICACION 
+                } else {
+                    modeloTabla.addRow(new Object[]{p.getNombre(), p.getDescripcion(), p.getFechaInicial(), "FINALIZADO"});  /// MODIFICACION 
+                }
             }
         }
-        
-       if (jrEnProceso.isSelected() == true) {
-           listaProyecto=proyecto.listarProyectos(true);
+
+        if (jrEnProceso.isSelected() == true) {
+            listaProyecto = proyecto.listarProyectos(true);
             for (Proyecto p : listaProyecto) {
-                modeloTabla.addRow(new Object[]{p.getNombre(),p.getDescripcion(),p.isEstado()});
+                modeloTabla.addRow(new Object[]{p.getNombre(), p.getDescripcion(), p.getFechaInicial(), "EN PROCESO"});  /// MODIFICACION 
             }
         }
         if (jrFinalizado.isSelected() == true) {
-           listaProyecto=proyecto.listarProyectos(false);
+            listaProyecto = proyecto.listarProyectos(false);
             for (Proyecto p : listaProyecto) {
-                modeloTabla.addRow(new Object[]{p.getNombre(),p.getDescripcion(),p.isEstado()});
+                modeloTabla.addRow(new Object[]{p.getNombre(), p.getDescripcion(), p.getFechaInicial(), "FINALIZADO"});  /// MODIFICACION 
             }
         }
 
     }
 
+    private void modificarTabla() {
+ //----------------------------------AGREGADO--------------------------------------------------------//
+        TableColumn columna0 = jTable1.getColumnModel().getColumn(0);
+        TableColumn columna1 = jTable1.getColumnModel().getColumn(1);
+        TableColumn columna2 = jTable1.getColumnModel().getColumn(2);
+        TableColumn columna3 = jTable1.getColumnModel().getColumn(3);
+        if (JrTodos.isSelected()) {
+            columna0.setMaxWidth(180);
+            columna0.setMinWidth(180);
+            columna0.setPreferredWidth(180);
+            columna1.setMaxWidth(327);
+            columna1.setMinWidth(327);
+            columna1.setPreferredWidth(327);
+            columna2.setMaxWidth(111);
+            columna2.setMinWidth(111);
+            columna2.setPreferredWidth(111);
+            columna3.setMaxWidth(140);
+            columna3.setMinWidth(140);
+            columna3.setPreferredWidth(140);
+            jTable1.doLayout();
+        } else {
+            columna1.setMaxWidth(466);
+            columna1.setMinWidth(466);
+            columna1.setPreferredWidth(466);
+             columna2.setMaxWidth(111);
+            columna2.setMinWidth(111);
+            columna2.setPreferredWidth(111);
+            columna3.setMaxWidth(0);
+            columna3.setMinWidth(0);
+            columna3.setPreferredWidth(0);
+            jTable1.doLayout();
+        }
+//----------------------------------AGREGADO--------------------------------------------------------//
+    }
+
+    
     private void borrarFilas() {
         int filas = modeloTabla.getRowCount() - 1;
         for (int i = filas; i >= 0; i--) {
             modeloTabla.removeRow(i);
         }
     }
-
     public VistaVerProyectos() {
         initComponents();
+        setLocation(200, 15);
         armarCabecera();
         borrarFilas();
-      
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jlNombre = new javax.swing.JLabel();
-        jlEstudiante = new javax.swing.JLabel();
         jbSalir = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jrFinalizado = new javax.swing.JRadioButton();
         jrEnProceso = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         JrTodos = new javax.swing.JRadioButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
-        setPreferredSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(900, 700));
         setRequestFocusEnabled(false);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 700));
-
-        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel1.setFont(new java.awt.Font("Castellar", 0, 40)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 0, 40)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Formulario de Inscripcion");
-
-        jlNombre.setBackground(new java.awt.Color(51, 51, 51));
-        jlNombre.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jlNombre.setForeground(new java.awt.Color(255, 102, 0));
-        jlNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        jlEstudiante.setBackground(new java.awt.Color(51, 51, 51));
-        jlEstudiante.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jlEstudiante.setForeground(new java.awt.Color(255, 255, 255));
-        jlEstudiante.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Listado de proyectos");
 
         jbSalir.setBackground(new java.awt.Color(51, 51, 51));
-        jbSalir.setFont(new java.awt.Font("Castellar", 1, 17)); // NOI18N
+        jbSalir.setFont(new java.awt.Font("Engravers MT", 1, 17)); // NOI18N
         jbSalir.setForeground(new java.awt.Color(255, 255, 255));
         jbSalir.setText("SALIR");
         jbSalir.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -130,9 +153,6 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
                 jSalir3ActionPerformed(evt);
             }
         });
-
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        jLabel2.setText("LISTADO DE MATERIAS");
 
         jrFinalizado.setText("Finalizado");
         jrFinalizado.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +168,9 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
             }
         });
 
+        jTable1.setBackground(new java.awt.Color(51, 51, 51));
+        jTable1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -162,7 +185,7 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "NOMBRE", "AÑO"
+                "Title 1", "Title 2", "Title 3"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -173,12 +196,13 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.setFocusable(false);
+        jTable1.setGridColor(new java.awt.Color(241, 226, 226));
+        jTable1.setRowHeight(30);
+        jTable1.setSelectionBackground(new java.awt.Color(241, 226, 226));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -195,81 +219,54 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(567, 567, 567)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(130, 130, 130)
-                            .addComponent(jrEnProceso)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jrFinalizado)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(JrTodos)))
-                    .addGap(73, 73, 73)
-                    .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(78, 78, 78)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(301, 301, 301)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel1)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jrEnProceso)
-                            .addComponent(jrFinalizado)
-                            .addComponent(JrTodos))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(392, 392, 392))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 74, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(JrTodos)
+                                .addGap(72, 72, 72)
+                                .addComponent(jrEnProceso)
+                                .addGap(101, 101, 101)
+                                .addComponent(jrFinalizado)
+                                .addGap(193, 193, 193))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59))))
+                    .addComponent(jSeparator1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrFinalizado)
+                    .addComponent(jrEnProceso)
+                    .addComponent(JrTodos))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
@@ -279,31 +276,24 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jSalir3ActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-//        if (jrEnProceso.isSelected() == true) {
-//            jbAnularInscripcion.setEnabled(true);
-//        }
-//        if (jrFinalizado.isSelected() == true) {
-//            jbInscribir.setEnabled(true);
-//        }
-//
-    }//GEN-LAST:event_jTable1MouseClicked
-
     private void jrEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrEnProcesoActionPerformed
         jrFinalizado.setSelected(false);
         JrTodos.setSelected(false);
+        modificarTabla(); // AGREGADO
         llenarTabla();
     }//GEN-LAST:event_jrEnProcesoActionPerformed
 
     private void jrFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrFinalizadoActionPerformed
         jrEnProceso.setSelected(false);
         JrTodos.setSelected(false);
+        modificarTabla(); // AGREGADO
         llenarTabla();
     }//GEN-LAST:event_jrFinalizadoActionPerformed
 
     private void JrTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JrTodosActionPerformed
-       jrFinalizado.setSelected(false);
+        jrFinalizado.setSelected(false);
         jrEnProceso.setSelected(false);
+        modificarTabla(); // AGREGADO
         llenarTabla();
     }//GEN-LAST:event_JrTodosActionPerformed
 
@@ -311,13 +301,10 @@ public class VistaVerProyectos extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton JrTodos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JLabel jlEstudiante;
-    private javax.swing.JLabel jlNombre;
     private javax.swing.JRadioButton jrEnProceso;
     private javax.swing.JRadioButton jrFinalizado;
     // End of variables declaration//GEN-END:variables

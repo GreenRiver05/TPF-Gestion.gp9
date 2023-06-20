@@ -55,7 +55,7 @@ public class ProyectoData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, true);
+            ps.setBoolean(1, estado); // MODIFICADO, TRAIA SIEMPRE LOS VERDADEROS (TRUE)
             ps.executeUpdate();
             ResultSet rs = ps.executeQuery();
 
@@ -180,7 +180,7 @@ public class ProyectoData {
                     proyecto.setIdProyecto(rs.getInt(1));
                     proyecto.setNombre(rs.getString(2));
                     proyecto.setDescripcion(rs.getString(3));
-//                    proyecto.setFechaInicial(rs.getDate(4).toLocalDate());
+                    proyecto.setFechaInicial(rs.getDate(4).toLocalDate());
                     proyecto.setEstado(rs.getBoolean(5));
                     listaTodosLosProyectos.add(proyecto);
                 } while (rs.next());

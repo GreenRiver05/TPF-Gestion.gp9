@@ -101,6 +101,33 @@ public class MiembroData {
         return miembro;
     }
 
+    public ArrayList<Miembro> listarTodosLosMiembros(){
+        ArrayList<Miembro> listarTodos = new ArrayList();
+        String sql = "SELECT nombre, Apellido,dni FROM miembro WHERE ?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                do {
+
+                    Miembro miembro = new Miembro();
+                    miembro.setNombre(rs.getString(1));
+                    miembro.setApellido(rs.getString(2));
+                    miembro.setDni(rs.getInt(3));
+                    listarTodos.add(miembro);
+
+                } while (rs.next());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron Miembros para el proyecto");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
+        }
+        return listarTodos;
+        
+    }
     public ArrayList<Miembro> buscarMiembrosXProyecto(String nombre) { //FUNCA
         String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.dni\n"
                 + "FROM incorporacion, miembro, equipo, proyecto\n"

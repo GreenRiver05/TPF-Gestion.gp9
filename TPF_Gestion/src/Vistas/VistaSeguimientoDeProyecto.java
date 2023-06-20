@@ -37,23 +37,16 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
 
     private void armarCabecera() { // Modificamos la tabla, dependiendo si esta seleccionado el radio button Miembro
 
-        if (jrbMiembros.isSelected()) {
-            modeloTabla.addColumn("TAREA");
-            modeloTabla.addColumn("ESTADO");
-
-        } else {
-
-            modeloTabla.addColumn("TAREA");
-            modeloTabla.addColumn("ESTADO");
-            modeloTabla.addColumn("MIEMBRO");
-
-        }
-
+        modeloTabla.addColumn("TAREA");
+        modeloTabla.addColumn("ESTADO");
+        modeloTabla.addColumn("MIEMBRO");
+        
         jtTabla.setModel(modeloTabla);
 
-        jtTabla.getColumnModel().getColumn(0).setPreferredWidth(70); // Le seteamos el largo a las columnas
-        jtTabla.getColumnModel().getColumn(1).setPreferredWidth(45);
-        jtTabla.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jtTabla.getColumnModel().getColumn(0).setPreferredWidth(195); // Le seteamos el largo a las columnas
+        jtTabla.getColumnModel().getColumn(1).setPreferredWidth(140);
+        jtTabla.getColumnModel().getColumn(2).setPreferredWidth(400);
+        jtTabla.doLayout();
 
         if (jtTabla.getColumnModel().getColumnCount() > 0) {
             jtTabla.getColumnModel().getColumn(0).setResizable(false); // desactivamos el Resizable a todas las columnas
@@ -195,7 +188,7 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
 
         setPreferredSize(new java.awt.Dimension(900, 700));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 40)); // NOI18N
         jLabel1.setText("SEGUIMIENTO DE PROYECTOS");
         jLabel1.setPreferredSize(new java.awt.Dimension(450, 34));
 
@@ -356,6 +349,25 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(jcbTareasFinalizadas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                                .addComponent(jcbTareasEnProcesos)
+                                .addGap(66, 66, 66))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jcbTodas)
+                                .addGap(204, 204, 204)))
+                        .addComponent(jcMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(114, 114, 114))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -363,27 +375,20 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
                         .addComponent(jlCartelFinalizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrbMiembros)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jrbMiembros)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(237, 237, 237)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -396,25 +401,14 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jbFINALIZAR)
                         .addGap(129, 129, 129))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(jcbTareasFinalizadas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addComponent(jcbTareasEnProcesos)
-                        .addGap(66, 66, 66))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jcbTodas)
-                        .addGap(204, 204, 204)))
-                .addComponent(jcMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(114, 114, 114))
+                        .addComponent(jSeparator1)
+                        .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,9 +438,9 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
                             .addComponent(jcbTareasFinalizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jcbTareasEnProcesos)))
                     .addComponent(jcMiembros, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(jlCartelFinalizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -488,22 +482,33 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
 
     private void jrbMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMiembrosActionPerformed
         borrarFilas();
-        TableColumn columna = jtTabla.getColumnModel().getColumn(2);
+        TableColumn columna0 = jtTabla.getColumnModel().getColumn(0);
+        TableColumn columna1 = jtTabla.getColumnModel().getColumn(1);
+        TableColumn columna2 = jtTabla.getColumnModel().getColumn(2);
+        
+        
         if (jrbMiembros.isSelected()) {
             llenarMiembros();
             jcMiembros.setEnabled(true);
 
-            columna.setMaxWidth(0);
-            columna.setMinWidth(0);
-            columna.setPreferredWidth(0);
+            columna2.setMaxWidth(0);
+            columna2.setMinWidth(0);
+            columna2.setPreferredWidth(0);
             jtTabla.doLayout();
         } else {
             jcMiembros.removeAllItems();
             jcMiembros.setEnabled(false);
-            columna.setMaxWidth(250);
-            columna.setMinWidth(250);
-            columna.setPreferredWidth(250);
+            columna0.setMaxWidth(195);
+            columna0.setMinWidth(195);
+            columna0.setPreferredWidth(195);
+            columna1.setMaxWidth(140);
+            columna1.setMinWidth(140);
+            columna1.setPreferredWidth(140);
+            columna2.setMaxWidth(400);
+            columna2.setMinWidth(400);
+            columna2.setPreferredWidth(400);
             jtTabla.doLayout();
+           
 
         }
         desactivarFinalizado();

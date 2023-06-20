@@ -196,14 +196,18 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
         jcTodos = new javax.swing.JCheckBox();
         jrbFiltrarProyectos = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jbSalir = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(900, 700));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 1, 40)); // NOI18N
         jLabel1.setText("CONSULTAR EQUIPOS");
         jLabel1.setPreferredSize(new java.awt.Dimension(300, 40));
 
-        jtMiembros.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jtMiembros.setBackground(new java.awt.Color(51, 51, 51));
+        jtMiembros.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jtMiembros.setForeground(new java.awt.Color(255, 255, 255));
         jtMiembros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -215,7 +219,13 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtMiembros.setRowHeight(25);
+        jtMiembros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtMiembros.setFocusCycleRoot(true);
+        jtMiembros.setFocusable(false);
+        jtMiembros.setGridColor(new java.awt.Color(241, 226, 226));
+        jtMiembros.setRowHeight(30);
+        jtMiembros.setSelectionBackground(new java.awt.Color(241, 226, 226));
+        jtMiembros.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jtMiembros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtMiembrosMouseClicked(evt);
@@ -230,6 +240,7 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
             }
         });
 
+        cboxProyectos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         cboxProyectos.setEnabled(false);
         cboxProyectos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +248,9 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
             }
         });
 
+        jtTareas.setBackground(new java.awt.Color(51, 51, 51));
+        jtTareas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jtTareas.setForeground(new java.awt.Color(255, 255, 255));
         jtTareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -248,7 +262,12 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
                 "Title 1"
             }
         ));
-        jtTareas.setRowHeight(25);
+        jtTareas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtTareas.setFocusable(false);
+        jtTareas.setGridColor(new java.awt.Color(241, 226, 226));
+        jtTareas.setRowHeight(30);
+        jtTareas.setSelectionBackground(new java.awt.Color(241, 226, 226));
+        jtTareas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jtTareas);
 
         jcActivos.setText("Activos");
@@ -282,27 +301,32 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("FILTRAR POR ESTADO");
 
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jbSalir.setBackground(new java.awt.Color(51, 51, 51));
+        jbSalir.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
+        jbSalir.setForeground(new java.awt.Color(255, 255, 255));
+        jbSalir.setText("SALIR");
+        jbSalir.setPreferredSize(new java.awt.Dimension(100, 40));
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(237, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(168, 168, 168)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(159, 159, 159)
                                 .addComponent(jrbFiltrarProyectos)
                                 .addGap(44, 44, 44))
                             .addGroup(layout.createSequentialGroup()
@@ -311,22 +335,41 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
                                 .addComponent(cboxProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 114, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jcActivos)
-                                    .addGap(69, 69, 69)
-                                    .addComponent(jcInactivos))
-                                .addComponent(cboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jcActivos)
+                                .addGap(69, 69, 69)
+                                .addComponent(jcInactivos))
+                            .addComponent(cboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(353, 353, 353)))
                 .addGap(134, 134, 134))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jSeparator1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(124, 124, 124)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(cboxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -341,10 +384,15 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
                     .addComponent(jcInactivos)
                     .addComponent(jcActivos))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
 
         pack();
@@ -408,6 +456,10 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
         llenarTablaTareas();
     }//GEN-LAST:event_jtMiembrosMouseClicked
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Equipo> cboxEquipos;
@@ -416,6 +468,8 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbSalir;
     private javax.swing.JCheckBox jcActivos;
     private javax.swing.JCheckBox jcInactivos;
     private javax.swing.JCheckBox jcTodos;

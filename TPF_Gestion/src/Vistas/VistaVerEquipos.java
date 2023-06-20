@@ -7,57 +7,47 @@ import Entidades.Proyecto;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-
 public class VistaVerEquipos extends javax.swing.JInternalFrame {
 
-  private DefaultTableModel modeloTabla = new DefaultTableModel() {
-        
+    private DefaultTableModel modeloTabla = new DefaultTableModel() {
+
         @Override
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
-  
+
     private EquipoData proyecto = new EquipoData();
-   
+
     private ArrayList<Equipo> listaTodosLosEquipos = new ArrayList();
     private ArrayList<Equipo> listaEquipo = new ArrayList();
-   
-
-    
 
     private void armarCabecera() {
         ArrayList<Object> columnas = new ArrayList();
-   
+
         columnas.add("Proyecto");
         columnas.add("Nombre");
-       //columnas.add("FechaDeCreacion");
+        columnas.add("FechaDeCreacion");
         for (Object c : columnas) { //se recorre el arrays para ir llenando los nombres de las columnas
             modeloTabla.addColumn(c);
         }
         jTable1.setModel(modeloTabla);
 
-          
-
-
     }
 
     private void llenarTabla() {
         borrarFilas();
-     
 
-       
-        
-       if (jrActivos.isSelected() == true) {
-           listaEquipo=proyecto.listarEquipos(true);
+        if (jrActivos.isSelected() == true) {
+            listaEquipo = proyecto.listarEquipos(true);
             for (Equipo p : listaEquipo) {
-                modeloTabla.addRow(new Object[]{p.getProyecto().getNombre(),p.getNombre()});
+                modeloTabla.addRow(new Object[]{p.getProyecto().getNombre(), p.getNombre(),p.getFechaCreacion()});
             }
         }
         if (jrInactivos.isSelected() == true) {
-           listaEquipo=proyecto.listarEquipos(false);
+            listaEquipo = proyecto.listarEquipos(false);
             for (Equipo p : listaEquipo) {
-                modeloTabla.addRow(new Object[]{p.getProyecto().getNombre(),p.getNombre()});
+                modeloTabla.addRow(new Object[]{p.getProyecto().getNombre(), p.getNombre(),p.getFechaCreacion()});
             }
         }
 
@@ -72,42 +62,30 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
 
     public VistaVerEquipos() {
         initComponents();
+        setLocation(200, 15);
         armarCabecera();
         borrarFilas();
-      
+
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jlNombre = new javax.swing.JLabel();
         jlEstudiante = new javax.swing.JLabel();
         jbSalir = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jrInactivos = new javax.swing.JRadioButton();
         jrActivos = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setPreferredSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(900, 700));
         setRequestFocusEnabled(false);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 700));
-
-        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel1.setFont(new java.awt.Font("Castellar", 0, 40)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Engravers MT", 0, 40)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("EQUIPOS");
-
-        jlNombre.setBackground(new java.awt.Color(51, 51, 51));
-        jlNombre.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jlNombre.setForeground(new java.awt.Color(255, 102, 0));
-        jlNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("listado de EQUIPOS");
 
         jlEstudiante.setBackground(new java.awt.Color(51, 51, 51));
         jlEstudiante.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -125,9 +103,6 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
-        jLabel2.setText("LISTADO DE MATERIAS");
-
         jrInactivos.setText("INACTIVOS");
         jrInactivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +117,9 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
             }
         });
 
+        jTable1.setBackground(new java.awt.Color(51, 51, 51));
+        jTable1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -150,6 +128,13 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.setFocusable(false);
+        jTable1.setGridColor(new java.awt.Color(241, 226, 226));
+        jTable1.setRowHeight(30);
+        jTable1.setRowMargin(0);
+        jTable1.setSelectionBackground(new java.awt.Color(241, 226, 226));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,78 +143,48 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
-                .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(209, 209, 209)
-                .addComponent(jrActivos)
-                .addGap(238, 238, 238)
-                .addComponent(jrInactivos)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(567, 567, 567)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(289, 289, 289)
-                        .addComponent(jLabel2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jrActivos))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jrInactivos)))
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(307, 307, 307)
+                .addComponent(jrActivos)
+                .addGap(86, 86, 86)
+                .addComponent(jrInactivos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(144, 144, 144))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(364, 364, 364))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jrInactivos)
+                    .addComponent(jrActivos))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                        .addGap(83, 83, 83)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -251,7 +206,7 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
 
     private void jrActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrActivosActionPerformed
         jrInactivos.setSelected(false);
-  
+
         llenarTabla();
     }//GEN-LAST:event_jrActivosActionPerformed
 
@@ -263,13 +218,10 @@ public class VistaVerEquipos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlEstudiante;
-    private javax.swing.JLabel jlNombre;
     private javax.swing.JRadioButton jrActivos;
     private javax.swing.JRadioButton jrInactivos;
     // End of variables declaration//GEN-END:variables
