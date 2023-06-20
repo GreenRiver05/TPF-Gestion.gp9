@@ -115,10 +115,13 @@
                 <Property name="text" type="java.lang.String" value="Incorporar Miembros en Equipos"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="jmAsignarTareas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Asignar Tareas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmAsignarTareasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>

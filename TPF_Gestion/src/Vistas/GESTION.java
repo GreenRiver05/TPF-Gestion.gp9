@@ -33,7 +33,7 @@ public class GESTION extends javax.swing.JFrame {
         jmVerEquipos = new javax.swing.JMenuItem();
         MenuIncorporacion = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmAsignarTareas = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jmSeguimientoDeProyectos = new javax.swing.JMenuItem();
         jmConsultarEquipos = new javax.swing.JMenuItem();
@@ -135,8 +135,13 @@ public class GESTION extends javax.swing.JFrame {
         jMenuItem3.setText("Incorporar Miembros en Equipos");
         MenuIncorporacion.add(jMenuItem3);
 
-        jMenuItem4.setText("Asignar Tareas");
-        MenuIncorporacion.add(jMenuItem4);
+        jmAsignarTareas.setText("Asignar Tareas");
+        jmAsignarTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAsignarTareasActionPerformed(evt);
+            }
+        });
+        MenuIncorporacion.add(jmAsignarTareas);
 
         jMenuItem5.setText("Seguimiento de Tareas");
         MenuIncorporacion.add(jMenuItem5);
@@ -220,7 +225,7 @@ public class GESTION extends javax.swing.JFrame {
     private void jmCrearEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCrearEquiposActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        VistaFormularioEquipo crearEquipos = new VistaFormularioEquipo();
+        VistaCrearEquipos crearEquipos = new VistaCrearEquipos();
         jDesktopPane1.add(crearEquipos);
         crearEquipos.setVisible(true);
     }//GEN-LAST:event_jmCrearEquiposActionPerformed
@@ -240,6 +245,14 @@ public class GESTION extends javax.swing.JFrame {
         jDesktopPane1.add(fMiembro);
         fMiembro.setVisible(true);
     }//GEN-LAST:event_jmVerMiembrosActionPerformed
+
+    private void jmAsignarTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAsignarTareasActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaAsignarTareas tarea = new VistaAsignarTareas();
+        jDesktopPane1.add(tarea);
+        tarea.setVisible(true);
+    }//GEN-LAST:event_jmAsignarTareasActionPerformed
 
     public static void main(String args[]) {
 
@@ -266,8 +279,8 @@ public class GESTION extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jmAsignarTareas;
     private javax.swing.JMenuItem jmConsultarEquipos;
     private javax.swing.JMenuItem jmCrearEquipos;
     private javax.swing.JMenuItem jmCrearMiembros;

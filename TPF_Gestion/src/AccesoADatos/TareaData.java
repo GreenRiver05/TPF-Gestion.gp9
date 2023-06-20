@@ -48,41 +48,6 @@ public class TareaData {
         }
     }
 
-    public Incorporacion obtenerIdIncorporacion(String nombreProyecto, String nombreEquipo, int dni) {
-        String sql = "SELECT incorporacion.IdIncorporacion\n"
-                + "FROM equipo, miembro, incorporacion, proyecto\n"
-                + "WHERE equipo.Nombre = ?\n"
-                + "AND miembro.Dni = ?\n"
-                + "AND proyecto.Nombre = ?\n"
-                + "AND equipo.IdEquipo = incorporacion.IdEquipo\n"
-                + "AND miembro.IdMiembro = incorporacion.IdMiembro";
-
-        Incorporacion incorporacion = new Incorporacion();
-
-        try {
-            
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nombreEquipo);
-            ps.setString(3, nombreProyecto);
-            ps.setInt(2, dni);
-            ps.executeUpdate();
-            ResultSet rs = ps.executeQuery();
-
-            if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "No existe Tarea.");
-            } else {
-                incorporacion.setIdIncorporacion(rs.getInt(1));
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
-
-        }
-
-        return incorporacion;
-
-    }
-
     public ArrayList<Tarea> consultaInfoEquipo(String nombre) { //FUNCA
         ArrayList<Tarea> infoEquipo = new ArrayList();
 

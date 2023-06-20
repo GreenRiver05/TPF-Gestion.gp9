@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
-public class VistaFormularioEquipo extends javax.swing.JInternalFrame {
+public class VistaCrearEquipos extends javax.swing.JInternalFrame {
 
     private void LlenarComboBox() {
         ProyectoData pd = new ProyectoData();
@@ -19,7 +19,7 @@ public class VistaFormularioEquipo extends javax.swing.JInternalFrame {
         }
     }
 
-    public VistaFormularioEquipo() {
+    public VistaCrearEquipos() {
         initComponents();
         LlenarComboBox();
         setLocation(200, 15);

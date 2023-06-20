@@ -105,6 +105,44 @@ public class EquipoData {
         return equipos;
     }
 
+    public ArrayList<Equipo> listarEquiposPorProyectos(String nombre){
+      ArrayList<Equipo> equipos = new ArrayList();
+
+        String sql = "SELECT* FROM equipo,proyecto WHERE proyecto.Nombre =? AND equipo.IdProyecto = proyecto.IdProyecto ORDER BY equipo.nombre;"; //MODIFICADOOOOOOOOOOOOOOOOOOOOOOOOO
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron equipos para ese proyecto ");
+            } else {
+                do {
+
+                    Equipo equipo = new Equipo();
+                    Proyecto proyecto = new Proyecto();
+
+                    equipo.setIdEquipo(rs.getInt(1));
+                    proyecto.setIdProyecto(rs.getInt(2));
+                    proyecto.setNombre(rs.getString(7)); //AGREGADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+                    equipo.setProyecto(proyecto);
+                    equipo.setNombre(rs.getString(3));
+                    equipo.setFechaCreacion(rs.getDate(4).toLocalDate());
+                    equipo.setEstado(rs.getBoolean(5));
+
+                    equipos.add(equipo);
+
+                } while (rs.next());
+
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo " + ex.getMessage());
+        }
+        return equipos;  
+    }
+    
     public ArrayList<Equipo> listarEquipos(boolean estado) { //FUNCA
         ArrayList<Equipo> equipos = new ArrayList();
 
