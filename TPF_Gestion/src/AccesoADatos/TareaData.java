@@ -94,7 +94,7 @@ public class TareaData {
     }
 
     public void finalizada(int id) { //FUNCA
-        String sql = "UPDATE tarea SET  Estado=1 WHERE IdTarea=?";
+        String sql = "UPDATE tarea SET  Estado=0 WHERE IdTarea=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -111,7 +111,7 @@ public class TareaData {
     }
 
     public void enProceso(int id) { //FUNCA
-        String sql = "UPDATE tarea SET  Estado=0 WHERE IdTarea=?";
+        String sql = "UPDATE tarea SET  Estado=1 WHERE IdTarea=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -154,10 +154,10 @@ public class TareaData {
         }
     }
 
-    public ArrayList<Tarea> obtenerTareasXProyectos(String nombre) {
+        public ArrayList<Tarea> obtenerTareasXProyectos(String nombre) {
         ArrayList<Tarea> infoProyecto = new ArrayList();
 
-        String sql = "SELECT tarea.Nombre,tarea.Estado,miembro.Nombre,miembro.Apellido,miembro.Estado,miembro.Dni\n"
+        String sql = "SELECT tarea.Nombre,tarea.Estado,miembro.Nombre,miembro.Apellido,miembro.Estado,miembro.Dni,tarea.FechaComienzo,tarea.FechaCierre,tarea.IdTarea\n"
                 + "                FROM tarea,incorporacion,equipo,miembro,proyecto\n"
                 + "                WHERE proyecto.IdProyecto = equipo.IdProyecto AND equipo.IdEquipo = incorporacion.IdEquipo\n"
                 + "                AND incorporacion.IdMiembro = miembro.IdMiembro AND incorporacion.IdIncorporacion = tarea.IdIncorporacion\n"
@@ -184,6 +184,9 @@ public class TareaData {
                     miembro.setApellido(rs.getString(4));
                     miembro.setEstado(rs.getBoolean(5));
                     miembro.setDni(rs.getInt(6));
+                    tarea.setComienzo(rs.getDate(7).toLocalDate());
+                    tarea.setCierre(rs.getDate(8).toLocalDate());
+                    tarea.setIdTarea(rs.getInt(9));
                     incorporacion.setMiembro(miembro);
                     tarea.setIncorporacion(incorporacion);
                     infoProyecto.add(tarea);

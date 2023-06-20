@@ -1,4 +1,3 @@
-
 package AccesoADatos;
 
 import Entidades.*;
@@ -8,8 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 
 public class ComentarioData {
 
@@ -46,6 +45,7 @@ public class ComentarioData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Tarea" + ex.getMessage());
         }
     }
+
     public void modificarCometario(Comentarios comentario) { //FUNCA
         String sql = "UPDATE comentarios SET IdTarea = ?, Comentario = ?, FechaAvance = ? WHERE IdComentario = ?";
 
@@ -57,7 +57,7 @@ public class ComentarioData {
             ps.setString(2, comentario.getComentario());
             ps.setDate(3, Date.valueOf(comentario.getAvance()));
             ps.setInt(4, comentario.getIdComentario());
-             if (ps.executeUpdate() == 1) {
+            if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Comentario modificado exitosamente.");
             } else {
                 JOptionPane.showMessageDialog(null, "Comentario no existe");
@@ -69,10 +69,10 @@ public class ComentarioData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Comentario" + ex.getMessage());
         }
     }
-    public void eliminarComentario(int id){ //FUNCA
-         String sql = "DELETE FROM comentarios WHERE IdComentario = ?";
-       
-        
+
+    public void eliminarComentario(int id) { //FUNCA
+        String sql = "DELETE FROM comentarios WHERE IdComentario = ?";
+
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
@@ -86,5 +86,38 @@ public class ComentarioData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Comentario" + ex.getMessage());
         }
+    }
+
+    public ArrayList<Comentarios> listarComentariosXTarea(int idTarea) {
+        ArrayList<Comentarios> listaComentario = new ArrayList();
+
+        String sql = "SELECT comentarios.Comentario,comentarios.FechaAvance FROM comentarios,tarea"
+                + " WHERE tarea.IdTarea = ? AND tarea.IdTarea = comentarios.IdTarea";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idTarea);
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No existen Comentarios.");
+            } else {
+                do {
+
+                    Comentarios comentario = new Comentarios();
+                    comentario.setComentario(rs.getString(1));
+                    comentario.setAvance(rs.getDate(2).toLocalDate());
+                    listaComentario.add(comentario);
+
+                } while (rs.next());
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Comentario" + ex.getMessage());
+
+        }
+
+        return listaComentario;
     }
 }

@@ -34,14 +34,16 @@ public class GESTION extends javax.swing.JFrame {
         MenuIncorporacion = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jmAsignarTareas = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmSeguimientoTareas = new javax.swing.JMenuItem();
         jmSeguimientoDeProyectos = new javax.swing.JMenuItem();
         jmConsultarEquipos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1300, 800));
+        setMaximumSize(new java.awt.Dimension(1300, 850));
+        setPreferredSize(new java.awt.Dimension(1300, 850));
 
-        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
+        jDesktopPane1.setMaximumSize(new java.awt.Dimension(1300, 850));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1300, 850));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -51,7 +53,7 @@ public class GESTION extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
         );
 
         MenuProyectos.setText("Proyecto");
@@ -143,8 +145,13 @@ public class GESTION extends javax.swing.JFrame {
         });
         MenuIncorporacion.add(jmAsignarTareas);
 
-        jMenuItem5.setText("Seguimiento de Tareas");
-        MenuIncorporacion.add(jMenuItem5);
+        jmSeguimientoTareas.setText("Seguimiento de Tareas");
+        jmSeguimientoTareas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSeguimientoTareasActionPerformed(evt);
+            }
+        });
+        MenuIncorporacion.add(jmSeguimientoTareas);
 
         jmSeguimientoDeProyectos.setText("Seguimientos de Proyectos");
         jmSeguimientoDeProyectos.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +261,14 @@ public class GESTION extends javax.swing.JFrame {
         tarea.setVisible(true);
     }//GEN-LAST:event_jmAsignarTareasActionPerformed
 
+    private void jmSeguimientoTareasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSeguimientoTareasActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaSeguimientosDeTarea verTareas = new VistaSeguimientosDeTarea();
+        jDesktopPane1.add(verTareas);
+        verTareas.setVisible(true);
+    }//GEN-LAST:event_jmSeguimientoTareasActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -279,13 +294,13 @@ public class GESTION extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jmAsignarTareas;
     private javax.swing.JMenuItem jmConsultarEquipos;
     private javax.swing.JMenuItem jmCrearEquipos;
     private javax.swing.JMenuItem jmCrearMiembros;
     private javax.swing.JMenuItem jmCrearProyecto;
     private javax.swing.JMenuItem jmSeguimientoDeProyectos;
+    private javax.swing.JMenuItem jmSeguimientoTareas;
     private javax.swing.JMenuItem jmVerEquipos;
     private javax.swing.JMenuItem jmVerMiembros;
     private javax.swing.JMenuItem jmVerProyectos;
