@@ -73,18 +73,21 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
     }
     private void mostrarEstado(){
         Proyecto nombre = (Proyecto) jcProyectos.getSelectedItem();
-        if (nombre.isEstado()) {
-            jbFINALIZAR.setEnabled(true);
-            jbEnProceso.setEnabled(false);
-            jlEstado.setText("EN PROCESO");
-            jlEstado.setForeground(new java.awt.Color(204, 0, 204));
-        } else {
-            jbEnProceso.setEnabled(true);
-            jbFINALIZAR.setEnabled(false);
-            jlEstado.setText("FINALIZADO");
-            jlEstado.setForeground(new java.awt.Color(0, 153, 0));
+      if(nombre != null){
+          if (nombre.isEstado()) {
+              jbFINALIZAR.setEnabled(true);
+              jbEnProceso.setEnabled(false);
+              jlEstado.setText("EN PROCESO");
+              jlEstado.setForeground(new java.awt.Color(204, 0, 204));
+          } else {
+              jbEnProceso.setEnabled(true);
+              jbFINALIZAR.setEnabled(false);
+              jlEstado.setText("FINALIZADO");
+              jlEstado.setForeground(new java.awt.Color(0, 153, 0));
 
-        }
+          }
+      }
+       
     }
 
     private void borrarFilas() { // borramos filas de la tabla
@@ -277,6 +280,11 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
 
         jcProyectos.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
         jcProyectos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jcProyectos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcProyectosItemStateChanged(evt);
+            }
+        });
         jcProyectos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcProyectosActionPerformed(evt);
@@ -517,6 +525,7 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
         jcbTareasEnProcesos.setSelected(false);
         jcbTareasFinalizadas.setSelected(false);
         jcbTodas.setSelected(false);
+       
         borrarFilas();
               
 
@@ -539,6 +548,10 @@ public class VistaSeguimientoDeProyecto extends javax.swing.JInternalFrame {
         llenarProyectos();
         mostrarEstado();
     }//GEN-LAST:event_jbEnProcesoActionPerformed
+
+    private void jcProyectosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcProyectosItemStateChanged
+       mostrarEstado();
+    }//GEN-LAST:event_jcProyectosItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

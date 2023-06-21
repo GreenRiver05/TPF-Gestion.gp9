@@ -260,7 +260,7 @@ public class MiembroData {
 
     public ArrayList<Miembro> listarMiembroXEquipoYProyecto(String equipo, String proyecto) {
         ArrayList<Miembro> miembros = new ArrayList();
-        String sql = "SELECT DISTINCTROW miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado\n"
+        String sql = "SELECT miembro.Dni,miembro.Apellido,miembro.Nombre, miembro.Estado\n"
                 + "                FROM incorporacion,miembro,equipo,proyecto\n"
                 + "                WHERE equipo.Nombre =? AND proyecto.Nombre =?\n"
                 + "                AND incorporacion.IdMiembro=miembro.IdMiembro\n"

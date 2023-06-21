@@ -29,7 +29,9 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
 
     public void llenarEquipos() {
         boxEquipos.removeAllItems();
+      
         Proyecto proElegido = (Proyecto) boxProyecto.getSelectedItem();
+          System.out.println(proElegido.getNombre());
         for (Equipo equipo : eqData.listarEquiposPorProyectos(proElegido.getNombre())) {
             boxEquipos.addItem(equipo);
         }
@@ -39,9 +41,12 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
         boxMiembros.removeAllItems();
         Equipo eqElegido = (Equipo) boxEquipos.getSelectedItem();
         Proyecto proElegido = (Proyecto) boxProyecto.getSelectedItem();
-        for (Miembro miembro : miemData.listarMiembroXEquipoYProyecto(eqElegido.getNombre(), proElegido.getNombre())) {
-            boxMiembros.addItem(miembro);
+        if(eqElegido!=null && proElegido !=null){
+            for (Miembro miembro : miemData.listarMiembroXEquipoYProyecto(eqElegido.getNombre(), proElegido.getNombre())) {
+                boxMiembros.addItem(miembro);
+            }
         }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -272,6 +277,9 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
                 Tarea tarea = new Tarea(incorporacion, nombreTarea, inicio, cierre, true);
 
                 taData.crearTarea(tarea);
+                jtNombreTarea.setText("");
+                FechaInicio.setDate(null);
+                FechaCierre.setDate(null);
             }
         } catch (NullPointerException ex) {
             jlError.setText("INGRESE UNA FECHA VALIDA LPM");

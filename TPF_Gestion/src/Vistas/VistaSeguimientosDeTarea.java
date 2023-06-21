@@ -284,6 +284,11 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         jButton3.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
         jLabel5.setText("PROYECTOS:");
@@ -470,21 +475,25 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         jlErrorFecha.setText("");
         jlErrorTarea.setText("");
         try {
-            Tarea tarea = new Tarea();
-            String texto = jtfComentario.getText();
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-            String fecha = formatoFecha.format(jFechaAvance.getDate());
-            LocalDate avance = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            int filaElegida = jtTarea.getSelectedRow();
-            int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
-            tarea.setIdTarea(id);
-            Comentarios comentario = new Comentarios(tarea, texto, avance);
-            comData.crearComentario(comentario);
-            llenarTablaComentario();
-            jtfComentario.setText("");
-            jFechaAvance.setDate(null);
-            jbRegistrar.setEnabled(false);
-
+            if (jtfComentario.getText().equals("")) {
+                jlErrorComentario.setText("INGRESE COMENTARIO POR FAVOR");
+                jbRegistrar.setEnabled(false);
+            } else {
+                Tarea tarea = new Tarea();
+                String texto = jtfComentario.getText();
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+                String fecha = formatoFecha.format(jFechaAvance.getDate());
+                LocalDate avance = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                int filaElegida = jtTarea.getSelectedRow();
+                int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
+                tarea.setIdTarea(id);
+                Comentarios comentario = new Comentarios(tarea, texto, avance);
+                comData.crearComentario(comentario);
+                llenarTablaComentario();
+                jtfComentario.setText("");
+                jFechaAvance.setDate(null);
+                jbRegistrar.setEnabled(false);
+            }
         } catch (ArrayIndexOutOfBoundsException ex) {
             jlErrorTarea.setText("DEBE SELECCIONAR UNA TAREA");
         } catch (NullPointerException ex) {
@@ -519,6 +528,10 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
             jbRegistrar.setEnabled(true);
         }
     }//GEN-LAST:event_jtfComentarioActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
