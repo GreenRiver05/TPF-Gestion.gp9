@@ -47,7 +47,8 @@ public class EquipoData {
     }
 
     public Equipo buscarEquipo(String nom) { //FUNCA
-        String sql = "SELECT * FROM equipo WHERE Nombre=?";
+        String sql = "SELECT equipo.IdEquipo,equipo.IdProyecto,equipo.Nombre,equipo.FechaCreacion,equipo.Estado,proyecto.Nombre"
+                + " FROM equipo,proyecto WHERE equipo.Nombre=? AND proyecto.IdProyecto = equipo.IdProyecto";
         Equipo equipo = null;
         Proyecto proyecto = null;
         PreparedStatement ps;
@@ -62,6 +63,7 @@ public class EquipoData {
 
                 equipo.setIdEquipo(rs.getInt(1));
                 proyecto.setIdProyecto(rs.getInt("idProyecto"));
+                proyecto.setNombre(rs.getString(6));
                 equipo.setProyecto(proyecto);
                 equipo.setNombre(rs.getString(3));
                 equipo.setFechaCreacion(rs.getDate(4).toLocalDate());
@@ -214,9 +216,9 @@ public class EquipoData {
             ps.setString(1, nombre);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Baja Realizada.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
-            }
+            } //else {
+            //  JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
+            // }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo" + ex.getMessage());
@@ -230,9 +232,9 @@ public class EquipoData {
             ps.setString(1, nombre);
             if (ps.executeUpdate() == 1) {
                 JOptionPane.showMessageDialog(null, "Alta Realizada.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
-            }
+            }// else {
+            //  JOptionPane.showMessageDialog(null, "No existe Equipo con ese Nombre");
+            //}
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo" + ex.getMessage());
@@ -242,7 +244,7 @@ public class EquipoData {
     public ArrayList<Equipo> listarTodosEquipos() {
         ArrayList<Equipo> equipos = new ArrayList();
 
-        String sql = "SELECT * FROM equipo WHERE ?"; 
+        String sql = "SELECT * FROM equipo WHERE ?";
         PreparedStatement ps;
 
         try {
