@@ -271,7 +271,8 @@ public class MiembroData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, equipo);
             ps.setString(2, proyecto);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs=ps.executeQuery();
+            
 
             if (!rs.next()) {
                 JOptionPane.showMessageDialog(null, "No se encontraron miembros con el estado ");
