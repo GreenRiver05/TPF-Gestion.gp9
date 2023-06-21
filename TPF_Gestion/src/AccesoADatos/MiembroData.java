@@ -101,7 +101,7 @@ public class MiembroData {
         return miembro;
     }
 
-    public ArrayList<Miembro> listarTodosLosMiembros(){
+    public ArrayList<Miembro> listarTodosLosMiembros() {
         ArrayList<Miembro> listarTodos = new ArrayList();
         String sql = "SELECT nombre, Apellido,dni FROM miembro WHERE ?";
         PreparedStatement ps;
@@ -126,8 +126,43 @@ public class MiembroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
         }
         return listarTodos;
-        
+
     }
+
+    public ArrayList<Miembro> listarMiembrosSinEquipos() {
+        ArrayList<Miembro> listarTodos = new ArrayList();
+        String sql = "SELECT m.idMiembro, m.nombre, m.apellido,m.Dni\n"
+                + "FROM miembro m\n"
+                + "WHERE NOT EXISTS (\n"
+                + "    SELECT 1\n"
+                + "    FROM incorporacion i\n"
+                + "    WHERE i.idMiembro = m.idMiembro\n"
+                + ")";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                do {
+
+                    Miembro miembro = new Miembro();
+                    miembro.setIdMiembro(rs.getInt(1));
+                    miembro.setNombre(rs.getString(2));
+                    miembro.setApellido(rs.getString(3));
+                    miembro.setDni(rs.getInt(4));
+                    listarTodos.add(miembro);
+
+                } while (rs.next());
+            } else {
+                JOptionPane.showMessageDialog(null, "Todos los miembros estan en un Equipos");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Miembro " + ex.getMessage());
+        }
+        return listarTodos;
+
+    }
+
     public ArrayList<Miembro> buscarMiembrosXProyecto(String nombre) { //FUNCA
         String sql = "SELECT miembro.Nombre, miembro.Apellido, miembro.dni\n"
                 + "FROM incorporacion, miembro, equipo, proyecto\n"
@@ -237,20 +272,20 @@ public class MiembroData {
             ps.setString(1, equipo);
             ps.setString(2, proyecto);
             ResultSet rs = ps.executeQuery();
-            
+
             if (!rs.next()) {
                 JOptionPane.showMessageDialog(null, "No se encontraron miembros con el estado ");
-                
+
             } else {
                 do {
-                    
+
                     Miembro miembro = new Miembro();
                     miembro.setDni(rs.getInt("Dni"));
                     miembro.setNombre(rs.getString("Nombre"));
                     miembro.setApellido(rs.getString("Apellido"));
                     miembro.setEstado(rs.getBoolean("Estado"));
                     miembros.add(miembro);
-                    
+
                 } while (rs.next());
             }
         } catch (SQLException ex) {

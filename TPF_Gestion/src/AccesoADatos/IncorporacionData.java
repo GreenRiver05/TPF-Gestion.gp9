@@ -43,8 +43,9 @@ public class IncorporacionData {
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Incorporacion" + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Ya pertenece a un equipo");
         }
+        
     }
 
     public ArrayList<Incorporacion> buscarPorEquipo(Equipo equipo) { //FUNCA

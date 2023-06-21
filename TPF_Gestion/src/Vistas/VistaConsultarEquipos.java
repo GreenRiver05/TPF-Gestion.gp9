@@ -96,6 +96,8 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
             columna.setMinWidth(0);
             columna.setPreferredWidth(0);
             jtTareas.doLayout();
+            
+            
             Proyecto proyectoElegido = (Proyecto) cboxProyectos.getSelectedItem();
             Equipo equipoElegido = (Equipo) cboxEquipos.getSelectedItem();
             int filaElegida = jtMiembros.getSelectedRow();
@@ -110,6 +112,7 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
             columna.setMinWidth(200);
             columna.setPreferredWidth(200);
             jtTareas.doLayout();
+            
             int filaElegida = jtMiembros.getSelectedRow();
             int dni = (Integer) jtMiembros.getValueAt(filaElegida, 0);
             Equipo equipoElegido = (Equipo) cboxEquipos.getSelectedItem();
@@ -407,6 +410,9 @@ public class VistaConsultarEquipos extends javax.swing.JInternalFrame {
         cboxProyectos.setEnabled(false);
         borrarFilasMiembro();
         borrarFilasTarea();
+        jrbFiltrarProyectos.setSelected(false);
+        cboxProyectos.removeAllItems();
+        cboxProyectos.setEnabled(false);
     }//GEN-LAST:event_cboxEquiposActionPerformed
 
     private void cboxProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxProyectosActionPerformed

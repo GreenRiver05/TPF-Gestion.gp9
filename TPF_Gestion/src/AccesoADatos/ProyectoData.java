@@ -19,7 +19,7 @@ public class ProyectoData {
         con = ConexionGestion.getConexion();
     }
 
-    public void crearProyectos(Proyecto proyecto) { //FUNCA
+    public void crearProyectos(Proyecto proyecto) { //FUNCA - VISTA CREAR PROYECTO -
 
         String sql = "INSERT INTO proyecto(Nombre, Descripcion, FechaInicial, Estado) VALUES (?,?,?,?)";
 
@@ -81,7 +81,7 @@ public class ProyectoData {
 
     }
 
-    public Proyecto buscarPorNombre(String nombre) { //FUNCA
+    public Proyecto buscarPorNombre(String nombre) { //FUNCA - VISTA CREAR PROYECTO -
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
         Proyecto proyecto = new Proyecto();
         PreparedStatement ps;
@@ -109,7 +109,7 @@ public class ProyectoData {
 
     }
 
-    public void modificarProyecto(Proyecto proyecto) { //FUNCA
+    public void modificarProyecto(Proyecto proyecto) { //FUNCA - VISTA CREAR PROYECTO -
         String sql = "UPDATE proyecto SET Nombre=?, Descripcion=?, FechaInicial=?, Estado=? WHERE idProyecto=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

@@ -5,9 +5,6 @@ import Entidades.Proyecto;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.ExecutionException;
-import javax.swing.JOptionPane;
-import sun.font.SunFontManager;
 
 public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     
@@ -27,8 +24,8 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jbBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jlNacimiento = new javax.swing.JLabel();
-        jcbActivo = new javax.swing.JCheckBox();
-        jcbInactivo = new javax.swing.JCheckBox();
+        jcbEnProceso = new javax.swing.JCheckBox();
+        jcbFinalizado = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         jbNuevo = new javax.swing.JButton();
         jbRegistrar = new javax.swing.JButton();
@@ -44,19 +41,9 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jlErrorFecha = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(900, 700));
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
 
         jtNombre.setFont(new java.awt.Font("Dialog", 1, 29)); // NOI18N
         jtNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtNombreFocusGained(evt);
-            }
-        });
         jtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtNombreActionPerformed(evt);
@@ -66,11 +53,6 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jtDescripcion.setFont(new java.awt.Font("Dialog", 1, 29)); // NOI18N
         jtDescripcion.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtDescripcion.setEnabled(false);
-        jtDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtDescripcionFocusGained(evt);
-            }
-        });
         jtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtDescripcionActionPerformed(evt);
@@ -97,16 +79,11 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         jlNacimiento.setFont(new java.awt.Font("Dialog", 1, 29)); // NOI18N
         jlNacimiento.setText("FECHA DE CREACION:");
 
-        jcbActivo.setText("En proceso");
-        jcbActivo.setEnabled(false);
-        jcbActivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbActivoActionPerformed(evt);
-            }
-        });
+        jcbEnProceso.setText("En proceso");
+        jcbEnProceso.setEnabled(false);
 
-        jcbInactivo.setText("Finalizado");
-        jcbInactivo.setEnabled(false);
+        jcbFinalizado.setText("Finalizado");
+        jcbFinalizado.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("ESTADO");
@@ -228,9 +205,9 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
                         .addGap(224, 224, 224)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jcbActivo)
+                        .addComponent(jcbEnProceso)
                         .addGap(50, 50, 50)
-                        .addComponent(jcbInactivo))
+                        .addComponent(jcbFinalizado))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -272,8 +249,8 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbActivo)
-                    .addComponent(jcbInactivo))
+                    .addComponent(jcbEnProceso)
+                    .addComponent(jcbFinalizado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -288,8 +265,8 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         
-        jtNombre.setText("NOMBRE DE PROYECTO");
-        jtDescripcion.setText("DESCRIPCION");
+        jtNombre.setText("");
+        jtDescripcion.setText("");
         CALENDARIO.setDateFormatString("");
     }//GEN-LAST:event_jbNuevoActionPerformed
 
@@ -310,11 +287,11 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             jtId.setText(proyecto.getIdProyecto() + "");
             
             if (proyecto.isEstado()) {
-                jcbActivo.setSelected(true);
-                jcbInactivo.setSelected(false);
+                jcbEnProceso.setSelected(true);
+                jcbFinalizado.setSelected(false);
             } else {
-                jcbActivo.setSelected(false);
-                jcbInactivo.setSelected(true);
+                jcbEnProceso.setSelected(false);
+                jcbFinalizado.setSelected(true);
             }
         } catch (Exception e) {
         }
@@ -338,8 +315,8 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             ProyectoData data = new ProyectoData();
             data.modificarProyecto(proyecto);
             
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Por favor ingresa un nombre al proyecto");
+        } catch (NullPointerException ex) {
+            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA");
         }
 
     }//GEN-LAST:event_jbModificarActionPerformed
@@ -390,24 +367,6 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtDescripcionActionPerformed
 
-    private void jcbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbActivoActionPerformed
-
-    }//GEN-LAST:event_jcbActivoActionPerformed
-
-    private void jtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtNombreFocusGained
-        
-
-    }//GEN-LAST:event_jtNombreFocusGained
-
-    private void jtDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtDescripcionFocusGained
-        
-
-    }//GEN-LAST:event_jtDescripcionFocusGained
-
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-
-    }//GEN-LAST:event_formMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser CALENDARIO;
@@ -419,8 +378,8 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbRegistrar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JCheckBox jcbActivo;
-    private javax.swing.JCheckBox jcbInactivo;
+    private javax.swing.JCheckBox jcbEnProceso;
+    private javax.swing.JCheckBox jcbFinalizado;
     private javax.swing.JLabel jlDescripcion;
     private javax.swing.JLabel jlErrorDescripcion;
     private javax.swing.JLabel jlErrorFecha;

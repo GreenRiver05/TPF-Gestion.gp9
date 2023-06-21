@@ -48,7 +48,7 @@
                                   <Component id="jtIdMiembro" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                                   <Component id="jtNombre" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jlErrorApellido" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                                  <Component id="jlErrorDni" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                                  <Component id="jlErrorDni" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
@@ -84,7 +84,7 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <EmptySpace pref="193" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -173,6 +173,9 @@
         <Property name="text" type="java.lang.String" value="ACTIVO"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbActivoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jcbInactivo">
       <Properties>
@@ -182,6 +185,9 @@
         <Property name="text" type="java.lang.String" value="INACTIVO"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbInactivoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbRegistrar">
       <Properties>

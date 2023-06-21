@@ -274,7 +274,6 @@ public class VistaCrearEquipos extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
 
-        jtProyecto.setText("PROYECTO");
         jtNombre.setText("NOMBRE");
         CALENDARIO.setDateFormatString("");
         jcbActivo.setSelected(false);
@@ -294,7 +293,7 @@ public class VistaCrearEquipos extends javax.swing.JInternalFrame {
         Equipo equipo = new Equipo();
         equipo = data.buscarEquipo(nom);
         jtNombre.setText(equipo.getNombre());
-        jtProyecto.setText(equipo.getProyecto().getNombre());
+        
 
         CALENDARIO.setDate(java.sql.Date.valueOf(equipo.getFechaCreacion()));
         if (equipo.isEstado() == true) {
@@ -310,7 +309,7 @@ public class VistaCrearEquipos extends javax.swing.JInternalFrame {
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
 
         String nombre = jtNombre.getText();
-        String proyecto = jtProyecto.getText();
+        
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = formatoFecha.format(CALENDARIO.getDate());
         LocalDate FechaCreacion = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));

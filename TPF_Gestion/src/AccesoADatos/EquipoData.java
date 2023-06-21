@@ -84,7 +84,7 @@ public class EquipoData {
 
         String sql = "SELECT DISTINCTROW equipo.Nombre FROM equipo WHERE equipo.estado =? ORDER BY equipo.nombre";  //sin repetir
         PreparedStatement ps;
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setBoolean(1, estado);
@@ -105,8 +105,8 @@ public class EquipoData {
         return equipos;
     }
 
-    public ArrayList<Equipo> listarEquiposPorProyectos(String nombre){
-      ArrayList<Equipo> equipos = new ArrayList();
+    public ArrayList<Equipo> listarEquiposPorProyectos(String nombre) {
+        ArrayList<Equipo> equipos = new ArrayList();
 
         String sql = "SELECT* FROM equipo,proyecto WHERE proyecto.Nombre =? AND equipo.IdProyecto = proyecto.IdProyecto ORDER BY equipo.nombre;"; //MODIFICADOOOOOOOOOOOOOOOOOOOOOOOOO
 
@@ -140,9 +140,9 @@ public class EquipoData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo " + ex.getMessage());
         }
-        return equipos;  
+        return equipos;
     }
-    
+
     public ArrayList<Equipo> listarEquipos(boolean estado) { //FUNCA
         ArrayList<Equipo> equipos = new ArrayList();
 
@@ -239,4 +239,29 @@ public class EquipoData {
         }
     }
 
+    public ArrayList<Equipo> listarTodosEquipos() {
+        ArrayList<Equipo> equipos = new ArrayList();
+
+        String sql = "SELECT * FROM equipo WHERE ?"; 
+        PreparedStatement ps;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontraron equipos con el estado ");
+            } else {
+                do {
+                    Equipo equipo = new Equipo();
+                    equipo.setNombre(rs.getString(3));
+                    equipo.setIdEquipo(rs.getInt(1));
+                    equipos.add(equipo);
+                } while (rs.next());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Equipo " + ex.getMessage());
+        }
+        return equipos;
+    }
 }

@@ -60,10 +60,20 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
         jcbActivo.setForeground(new java.awt.Color(255, 255, 255));
         jcbActivo.setText("ACTIVO");
         jcbActivo.setEnabled(false);
+        jcbActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbActivoActionPerformed(evt);
+            }
+        });
 
         jcbInactivo.setForeground(new java.awt.Color(255, 255, 255));
         jcbInactivo.setText("INACTIVO");
         jcbInactivo.setEnabled(false);
+        jcbInactivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInactivoActionPerformed(evt);
+            }
+        });
 
         jbRegistrar.setBackground(new java.awt.Color(51, 51, 51));
         jbRegistrar.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
@@ -212,7 +222,7 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
                                     .addComponent(jtIdMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtNombre)
                                     .addComponent(jlErrorApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlErrorDni, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jlErrorDni, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(243, 243, 243)
                                     .addComponent(jbRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,7 +247,7 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addComponent(jLabel1)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,6 +296,20 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void restaurarTodo() {
+        jbBuscar.setEnabled(false);
+        jbBuscar2.setEnabled(false);
+        jtApellido.setEnabled(false);
+        jtNombre.setEnabled(false);
+        jcbActivo.setEnabled(false);
+        jcbInactivo.setEnabled(false);
+        jbRegistrar.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbEstado.setEnabled(false);
+        jbNuevo.setEnabled(false);
+
+    }
+
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
 
         try {
@@ -298,27 +322,29 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
             } else if (jcbInactivo.isSelected() == false) {
                 Estado = false;
             }
-
             Miembro mie = new Miembro(Dni, Apellido, Nombre, Estado);
             MiembroData md = new MiembroData();
             md.crearMiembro(mie);
+            jbNuevo.setEnabled(true);
+            jbRegistrar.setEnabled(false);
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese un Valor Numerico para el Dni");
+            jlErrorDni.setText("INGRESE UN NUMERO CON 10 DIGITOS");
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
 
-        jtDni.setText("DNI");
-        jtApellido.setText("APELLIDO");
-        jtNombre.setText("NOMBRE");
+        jtDni.setText("");
+        jtApellido.setText("");
+        jtNombre.setText("");
         jcbActivo.setSelected(false);
         jcbInactivo.setSelected(false);
+        restaurarTodo();
+
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEstadoActionPerformed
-        //        int id = Integer.parseInt(jtLegajo.getText());
         int dni = Integer.parseInt(jtDni.getText());
         MiembroData md = new MiembroData();
         if (jcbActivo.isSelected() == true) {
@@ -351,9 +377,9 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
             Miembro mie = new Miembro(idMiembro, Dni, Apellido, Nombre, Estado);
             MiembroData md = new MiembroData();
             md.modificarMiembro(mie);
-
+            jlErrorDni.setText("");
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese un Valor Numerico para el Dni");
+            jlErrorDni.setText("INGRESE UN NUMERO CON 10 DIGITOS");
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
@@ -370,16 +396,22 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
             MiembroData md = new MiembroData();
             Miembro mie = new Miembro();
             mie = md.buscarMiembroDNI(dni);
-            jtIdMiembro.setText(String.valueOf(mie.getIdMiembro()));
-            jtApellido.setText(mie.getApellido());
-            jtNombre.setText(mie.getNombre());
-            if (mie.isEstado() == true) {
-                jcbActivo.setSelected(true);
-                jbEstado.setText("Dar de Baja");
-            } else {
-                jcbInactivo.setSelected(true);
-                jbEstado.setText("Dar de Alta");
+            if (mie != null) {
+                jbEstado.setEnabled(true);
+                jtIdMiembro.setText(String.valueOf(mie.getIdMiembro()));
+                jtApellido.setText(mie.getApellido());
+                jtNombre.setText(mie.getNombre());
+                if (mie.isEstado() == true) {
+                    jcbActivo.setSelected(true);
+                    jbEstado.setText("Dar de Baja");
+                } else {
+                    jcbInactivo.setSelected(true);
+                    jbEstado.setText("Dar de Alta");
+                }
+                jbNuevo.setEnabled(true);
+                jbModificar.setEnabled(true);
             }
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un Valor Numerico para el Dni");
 
@@ -395,16 +427,21 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
             MiembroData md = new MiembroData();
             Miembro mie = new Miembro();
             mie = md.buscarMiembroPorApellido(Apellido);
-            jtIdMiembro.setText(String.valueOf(mie.getIdMiembro()));
-            jtDni.setText(String.valueOf(mie.getDni()));
-            jtNombre.setText(mie.getNombre());
-            if (mie.isEstado() == true) {
-                jcbActivo.setSelected(true);
-                jbEstado.setText("Dar de Baja");
-            } else {
-                jcbInactivo.setSelected(true);
-                jbEstado.setText("Dar de Alta");
+            if (mie != null) {
+                jtIdMiembro.setText(String.valueOf(mie.getIdMiembro()));
+                jtDni.setText(String.valueOf(mie.getDni()));
+                jtNombre.setText(mie.getNombre());
+                if (mie.isEstado() == true) {
+                    jcbActivo.setSelected(true);
+                    jbEstado.setText("Dar de Baja");
+                } else {
+                    jcbInactivo.setSelected(true);
+                    jbEstado.setText("Dar de Alta");
+                }
+                jbNuevo.setEnabled(true);
+                jbModificar.setEnabled(true);
             }
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese un Valor String para el Apellido");
 
@@ -412,58 +449,63 @@ public class VistaCrearMiembro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscar2ActionPerformed
 
     private void jtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDniActionPerformed
-        validaciones();
+
+        try {
+            int dni = Integer.parseInt(jtDni.getText());
+            jtApellido.setEnabled(true);
+            jbBuscar.setEnabled(true);
+            jlErrorDni.setText("");
+        } catch (NumberFormatException ex) {
+            jlErrorDni.setText("INGRESE UN NUMERO ");
+            jtApellido.setEnabled(false);
+            jbBuscar.setEnabled(false);
+        }
+
     }//GEN-LAST:event_jtDniActionPerformed
 
     private void jtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtApellidoActionPerformed
-        validaciones();
+        if (jtApellido.getText().equals("")) {
+            jlErrorApellido.setText("INGRESE UN APELLIDO");
+            jtNombre.setEnabled(false);
+            jbBuscar2.setEnabled(false);
+        } else {
+            jlErrorApellido.setText("");
+            jbBuscar2.setEnabled(true);
+            jtNombre.setEnabled(true);
+        }
     }//GEN-LAST:event_jtApellidoActionPerformed
 
     private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
-        validaciones();
+        if (jtNombre.getText().equals("")) {
+            jlErrorNombre.setText("INGRESE UN NOMBRE");
+            jcbActivo.setEnabled(false);
+            jcbInactivo.setEnabled(false);
+
+        } else {
+            jlErrorNombre.setText("");
+            jcbActivo.setEnabled(true);
+            jcbInactivo.setEnabled(true);
+        }
     }//GEN-LAST:event_jtNombreActionPerformed
 
-    private void validaciones() {
-        int aux = 0;
-        try {
-
-            if (jtNombre.getText().equals("") && aux==0) {
-                jlErrorNombre.setText("INGRESE UN NOMBRE");
-                jcbActivo.setEnabled(false);
-                jcbInactivo.setEnabled(false);
-                if (aux == 0) {
-                    jtNombre.requestFocus();
-                }
-                aux++;
-                
-            } else {
-                jlErrorNombre.setText("");
-                jcbActivo.setEnabled(true);
-                jcbInactivo.setEnabled(true);
-            }
-
-            if (jtApellido.getText().equals("") && aux==0) {
-                jlErrorApellido.setText("INGRESE UN APELLIDO");
-                jtNombre.setEnabled(false);
-                if (aux == 0) {
-                    jtNombre.requestFocus();
-                }
-                aux++;
-            } else {
-                jtApellido.setText("");
-                jtNombre.setEnabled(true);
-            }
-            int Dni = Integer.parseInt(jtDni.getText());
-            
-        } catch (Exception ex) {
-            jlErrorDni.setText("INGRESE UN NUMERO ");
-            if (aux == 0) {
-                jlErrorDni.requestFocus();
-            }
-            aux++;
-
+    private void jcbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbActivoActionPerformed
+        jcbInactivo.setSelected(false);
+        if (jcbActivo.isSelected()) {
+            jbRegistrar.setEnabled(true);
+        } else {
+            jbRegistrar.setEnabled(false);
         }
-    }
+    }//GEN-LAST:event_jcbActivoActionPerformed
+
+    private void jcbInactivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInactivoActionPerformed
+        jcbActivo.setSelected(false);
+        if (jcbInactivo.isSelected()) {
+            jbRegistrar.setEnabled(true);
+        } else {
+            jbRegistrar.setEnabled(false);
+        }
+    }//GEN-LAST:event_jcbInactivoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

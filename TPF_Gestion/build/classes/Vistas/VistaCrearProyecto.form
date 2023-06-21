@@ -9,9 +9,6 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
-  <Events>
-    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseClicked"/>
-  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -76,9 +73,9 @@
                       <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbEnProceso" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jcbInactivo" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbFinalizado" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
@@ -128,8 +125,8 @@
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="jcbActivo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jcbInactivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbEnProceso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbFinalizado" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="92" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -152,7 +149,6 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtNombreFocusGained"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtNombreActionPerformed"/>
       </Events>
     </Component>
@@ -165,7 +161,6 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtDescripcionFocusGained"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtDescripcionActionPerformed"/>
       </Events>
     </Component>
@@ -210,16 +205,13 @@
         <Property name="text" type="java.lang.String" value="FECHA DE CREACION:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jcbActivo">
+    <Component class="javax.swing.JCheckBox" name="jcbEnProceso">
       <Properties>
         <Property name="text" type="java.lang.String" value="En proceso"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbActivoActionPerformed"/>
-      </Events>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jcbInactivo">
+    <Component class="javax.swing.JCheckBox" name="jcbFinalizado">
       <Properties>
         <Property name="text" type="java.lang.String" value="Finalizado"/>
         <Property name="enabled" type="boolean" value="false"/>

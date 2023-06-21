@@ -32,7 +32,7 @@ public class GESTION extends javax.swing.JFrame {
         jmCrearEquipos = new javax.swing.JMenuItem();
         jmVerEquipos = new javax.swing.JMenuItem();
         MenuIncorporacion = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmIncorporarMiembros = new javax.swing.JMenuItem();
         jmAsignarTareas = new javax.swing.JMenuItem();
         jmSeguimientoTareas = new javax.swing.JMenuItem();
         jmSeguimientoDeProyectos = new javax.swing.JMenuItem();
@@ -134,8 +134,13 @@ public class GESTION extends javax.swing.JFrame {
         MenuIncorporacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         MenuIncorporacion.setPreferredSize(new java.awt.Dimension(115, 25));
 
-        jMenuItem3.setText("Incorporar Miembros en Equipos");
-        MenuIncorporacion.add(jMenuItem3);
+        jmIncorporarMiembros.setText("Incorporar Miembros en Equipos");
+        jmIncorporarMiembros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmIncorporarMiembrosActionPerformed(evt);
+            }
+        });
+        MenuIncorporacion.add(jmIncorporarMiembros);
 
         jmAsignarTareas.setText("Asignar Tareas");
         jmAsignarTareas.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +274,15 @@ public class GESTION extends javax.swing.JFrame {
         verTareas.setVisible(true);
     }//GEN-LAST:event_jmSeguimientoTareasActionPerformed
 
+    private void jmIncorporarMiembrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmIncorporarMiembrosActionPerformed
+     
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaIncorporarMiembros incorporar = new VistaIncorporarMiembros();
+        jDesktopPane1.add(incorporar);
+        incorporar.setVisible(true);
+    }//GEN-LAST:event_jmIncorporarMiembrosActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -293,12 +307,12 @@ public class GESTION extends javax.swing.JFrame {
     private javax.swing.JMenu MenuProyectos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jmAsignarTareas;
     private javax.swing.JMenuItem jmConsultarEquipos;
     private javax.swing.JMenuItem jmCrearEquipos;
     private javax.swing.JMenuItem jmCrearMiembros;
     private javax.swing.JMenuItem jmCrearProyecto;
+    private javax.swing.JMenuItem jmIncorporarMiembros;
     private javax.swing.JMenuItem jmSeguimientoDeProyectos;
     private javax.swing.JMenuItem jmSeguimientoTareas;
     private javax.swing.JMenuItem jmVerEquipos;
