@@ -65,6 +65,7 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSalir = new javax.swing.JButton();
+        jlError = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("TAREA:");
@@ -125,6 +126,8 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
             }
         });
 
+        jlError.setForeground(new java.awt.Color(255, 0, 51));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,10 +179,15 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
                 .addGap(107, 107, 107))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159)
-                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jbAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159)
+                        .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jlError, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(316, 316, 316))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +200,7 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boxProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -214,13 +222,15 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(FechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(jlError, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66))))
         );
@@ -237,33 +247,39 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_boxEquiposActionPerformed
 
     private void jbAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAsignarActionPerformed
+        jlError.setText("");
         try {
-            Equipo eqElegido = (Equipo) boxEquipos.getSelectedItem();
-            Proyecto proElegido = (Proyecto) boxProyecto.getSelectedItem();
-            Miembro miemElegido = (Miembro) boxMiembros.getSelectedItem();
-            
-            Incorporacion incorporacion = incData.obtenerIdIncorporacion(proElegido.getNombre(), eqElegido.getNombre(), miemElegido.getDni());
-            
-            String nombreTarea = jtNombreTarea.getText();
-            
-            SimpleDateFormat formatoFechaInicio = new SimpleDateFormat("dd-MM-yyyy");
-            String fecha = formatoFechaInicio.format(FechaInicio.getDate());
-            LocalDate inicio = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            if (jtNombreTarea.getText().equals("")) {
+                jlError.setText("INGRESE UN NOMBRE DE TAREA LPM");
+            } else {
 
-            SimpleDateFormat formatoFechaCierre = new SimpleDateFormat("dd-MM-yyyy");
-            String fecha1 = formatoFechaCierre.format(FechaCierre.getDate());
-            LocalDate cierre = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            
-            Tarea tarea = new Tarea(incorporacion,nombreTarea,inicio,cierre,true);
-            taData.crearTarea(tarea);
+                Equipo eqElegido = (Equipo) boxEquipos.getSelectedItem();
+                Proyecto proElegido = (Proyecto) boxProyecto.getSelectedItem();
+                Miembro miemElegido = (Miembro) boxMiembros.getSelectedItem();
 
-        }catch(Exception ex){
-            
+                Incorporacion incorporacion = incData.obtenerIdIncorporacion(proElegido.getNombre(), eqElegido.getNombre(), miemElegido.getDni());
+
+                String nombreTarea = jtNombreTarea.getText();
+
+                SimpleDateFormat formatoFechaInicio = new SimpleDateFormat("dd-MM-yyyy");
+                String fecha = formatoFechaInicio.format(FechaInicio.getDate());
+                LocalDate inicio = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                SimpleDateFormat formatoFechaCierre = new SimpleDateFormat("dd-MM-yyyy");
+                String fecha1 = formatoFechaCierre.format(FechaCierre.getDate());
+                LocalDate cierre = LocalDate.parse(fecha1, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+                Tarea tarea = new Tarea(incorporacion, nombreTarea, inicio, cierre, true);
+
+                taData.crearTarea(tarea);
+            }
+        } catch (NullPointerException ex) {
+            jlError.setText("INGRESE UNA FECHA VALIDA LPM");
         }
     }//GEN-LAST:event_jbAsignarActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_jSalirActionPerformed
 
 
@@ -284,6 +300,7 @@ public class VistaAsignarTareas extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbAsignar;
+    private javax.swing.JLabel jlError;
     private javax.swing.JTextField jtNombreTarea;
     // End of variables declaration//GEN-END:variables
 }

@@ -85,6 +85,17 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
 
     }
 
+    public void restaurar() {
+        jtfComentario.setText("");
+        jFechaAvance.setDate(null);
+        jbRegistrar.setEnabled(false);
+        borrarFilasComentario();
+        borrarFilasTarea();
+        jtfComentario.setText("");
+        jFechaAvance.setDate(null);
+        jbRegistrar.setEnabled(false);
+    }
+
     public void llenarTablaComentario() {
         borrarFilasComentario();
         int filaElegida = jtTarea.getSelectedRow();
@@ -143,6 +154,9 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jbEnProgreso = new javax.swing.JButton();
+        jlErrorComentario = new javax.swing.JLabel();
+        jlErrorFecha = new javax.swing.JLabel();
+        jlErrorTarea = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(900, 850));
         setMinimumSize(new java.awt.Dimension(900, 850));
@@ -226,6 +240,12 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("COMENTARIOS Y AVANCE");
 
+        jtfComentario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfComentarioActionPerformed(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 15)); // NOI18N
         jLabel3.setText("COMENTARIO :");
 
@@ -236,6 +256,7 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         jbRegistrar.setFont(new java.awt.Font("Engravers MT", 1, 13)); // NOI18N
         jbRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         jbRegistrar.setText("REGISTRAR COMENTARIO");
+        jbRegistrar.setEnabled(false);
         jbRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegistrarActionPerformed(evt);
@@ -253,6 +274,11 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
         });
 
         boxProyecto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        boxProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxProyectoActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(51, 51, 51));
         jButton3.setFont(new java.awt.Font("Engravers MT", 1, 16)); // NOI18N
@@ -270,19 +296,36 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
             }
         });
 
+        jlErrorComentario.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jlErrorComentario.setForeground(new java.awt.Color(255, 0, 51));
+
+        jlErrorFecha.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jlErrorFecha.setForeground(new java.awt.Color(255, 0, 51));
+
+        jlErrorTarea.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jlErrorTarea.setForeground(new java.awt.Color(255, 0, 51));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(291, 291, 291))
             .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(292, 292, 292))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +334,7 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(boxProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,36 +343,35 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
                                     .addComponent(jbFinalizarTarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jbEnProgreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 721, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 14, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(388, 388, 388))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGap(128, 128, 128)
+                                .addComponent(jcTODAS)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcCompletadas)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcProgresos))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jFechaAvance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jbRegistrar))
-                            .addComponent(jtfComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jcTODAS)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcCompletadas)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcProgresos)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addComponent(jlErrorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jFechaAvance, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbRegistrar)
+                                        .addGap(73, 73, 73))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlErrorComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(55, 55, 55)
+                                        .addComponent(jlErrorTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,31 +392,40 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
                     .addComponent(jcProgresos))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbEnProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jbFinalizarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85)))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlErrorComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbEnProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jbFinalizarTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)))
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfComentario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addComponent(jlErrorTarea, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jFechaAvance, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jlErrorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -384,64 +435,90 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
     private void jcTODASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcTODASActionPerformed
         jcCompletadas.setSelected(false);
         jcProgresos.setSelected(false);
+        restaurar();
         llenarTablaTarea();
     }//GEN-LAST:event_jcTODASActionPerformed
 
     private void jcCompletadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcCompletadasActionPerformed
         jcTODAS.setSelected(false);
         jcProgresos.setSelected(false);
+        restaurar();
         llenarTablaTarea();
     }//GEN-LAST:event_jcCompletadasActionPerformed
 
     private void jcProgresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcProgresosActionPerformed
+        jcTODAS.setSelected(false);
         jcCompletadas.setSelected(false);
-        jcCompletadas.setSelected(false);
+        restaurar();
         llenarTablaTarea();
     }//GEN-LAST:event_jcProgresosActionPerformed
 
     private void jbFinalizarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarTareaActionPerformed
         int filaElegida = jtTarea.getSelectedRow();
         int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
+        restaurar();
         taData.finalizada(id);
         llenarTablaTarea();
     }//GEN-LAST:event_jbFinalizarTareaActionPerformed
 
     private void jtTareaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTareaMouseClicked
         llenarTablaComentario();
+
     }//GEN-LAST:event_jtTareaMouseClicked
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
-        Tarea tarea = new Tarea();
-        
-        String texto = jtfComentario.getText();
-                
-                
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = formatoFecha.format(jFechaAvance.getDate());
-        LocalDate avance = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        
-        
-        
-        
-        int filaElegida = jtTarea.getSelectedRow();
-        int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
-        
-        tarea.setIdTarea(id);
-        
-        
-        Comentarios comentario = new Comentarios(tarea, texto, avance);
-        
-        comData.crearComentario(comentario);
-        
-        llenarTablaComentario();
+        jlErrorFecha.setText("");
+        jlErrorTarea.setText("");
+        try {
+            Tarea tarea = new Tarea();
+            String texto = jtfComentario.getText();
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            String fecha = formatoFecha.format(jFechaAvance.getDate());
+            LocalDate avance = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            int filaElegida = jtTarea.getSelectedRow();
+            int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
+            tarea.setIdTarea(id);
+            Comentarios comentario = new Comentarios(tarea, texto, avance);
+            comData.crearComentario(comentario);
+            llenarTablaComentario();
+            jtfComentario.setText("");
+            jFechaAvance.setDate(null);
+            jbRegistrar.setEnabled(false);
+
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            jlErrorTarea.setText("DEBE SELECCIONAR UNA TAREA");
+        } catch (NullPointerException ex) {
+            jlErrorFecha.setText("INGRESE FECHA VALIDA");
+        }
+
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
     private void jbEnProgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEnProgresoActionPerformed
         int filaElegida = jtTarea.getSelectedRow();
         int id = (Integer) jtTarea.getValueAt(filaElegida, 0);
+        restaurar();
         taData.enProceso(id);
         llenarTablaTarea();
     }//GEN-LAST:event_jbEnProgresoActionPerformed
+
+    private void boxProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxProyectoActionPerformed
+        jcTODAS.setSelected(false);
+        jcProgresos.setSelected(false);
+        jcCompletadas.setSelected(false);
+        restaurar();
+        borrarFilasComentario();
+        borrarFilasTarea();
+    }//GEN-LAST:event_boxProyectoActionPerformed
+
+    private void jtfComentarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfComentarioActionPerformed
+        if (jtfComentario.getText().equals("")) {
+            jlErrorComentario.setText("INGRESE COMENTARIO POR FAVOR");
+            jbRegistrar.setEnabled(false);
+        } else {
+            jlErrorComentario.setText("");
+            jbRegistrar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtfComentarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,6 +539,9 @@ public class VistaSeguimientosDeTarea extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox jcCompletadas;
     private javax.swing.JCheckBox jcProgresos;
     private javax.swing.JCheckBox jcTODAS;
+    private javax.swing.JLabel jlErrorComentario;
+    private javax.swing.JLabel jlErrorFecha;
+    private javax.swing.JLabel jlErrorTarea;
     private javax.swing.JTable jtComentarios;
     private javax.swing.JTable jtTarea;
     private javax.swing.JTextField jtfComentario;

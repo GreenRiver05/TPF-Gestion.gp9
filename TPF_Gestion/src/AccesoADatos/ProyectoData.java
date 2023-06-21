@@ -83,14 +83,14 @@ public class ProyectoData {
 
     public Proyecto buscarPorNombre(String nombre) { //FUNCA - VISTA CREAR PROYECTO -
         String sql = "SELECT * FROM proyecto WHERE Nombre=?";
-        Proyecto proyecto = new Proyecto();
+        Proyecto proyecto = null;
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-
+                proyecto = new Proyecto();
                 proyecto.setIdProyecto(rs.getInt("idProyecto"));
                 proyecto.setNombre(rs.getString("nombre"));
                 proyecto.setDescripcion(rs.getString("descripcion"));

@@ -170,7 +170,7 @@ public class TareaData {
             ResultSet rs = ps.executeQuery();
 
             if (!rs.next()) {
-                JOptionPane.showMessageDialog(null, "Proyecto no Tiene Tareas ni Equipo.");
+                JOptionPane.showMessageDialog(null, " El Proyecto " + nombre + " no Tiene Tareas.");
             } else {
                 do {
 

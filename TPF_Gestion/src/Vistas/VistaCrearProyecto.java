@@ -7,14 +7,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class VistaCrearProyecto extends javax.swing.JInternalFrame {
-    
+
     public VistaCrearProyecto() {
         initComponents();
         setLocation(200, 15);
         jtId.setVisible(false);
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -167,37 +167,28 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 134, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jlNombreProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlErrorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlErrorDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jlNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlErrorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(CALENDARIO, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbBuscar)))
-                .addGap(123, 123, 123))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(jbRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlNombreProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlErrorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jlErrorDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jlDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jbBuscar)))
+                        .addGap(123, 123, 123))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CALENDARIO, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123))))
             .addComponent(jSeparator3)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,6 +203,19 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
                         .addGap(104, 104, 104)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(jbRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlErrorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,11 +267,26 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        
+    public void restaurarTodo() {
+        jbNuevo.setEnabled(false);
+        jbModificar.setEnabled(false);
+        jbNuevo.setEnabled(false);
+        jbRegistrar.setEnabled(false);
+        jtDescripcion.setEnabled(false);
         jtNombre.setText("");
         jtDescripcion.setText("");
-        CALENDARIO.setDateFormatString("");
+        CALENDARIO.setDate(null);
+        //CALENDARIO.setDate(""); no va
+        //CALENDARIO.setDateFormatString(""); no va
+        CALENDARIO.setEnabled(false);
+        jlErrorDescripcion.setText("");
+        jlErrorNombre.setText("");
+        jlErrorFecha.setText("");
+        
+    }
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        restaurarTodo();
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -275,33 +294,48 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
-        try {
+
+      
             ProyectoData data = new ProyectoData();
             Proyecto proyecto = new Proyecto();
             String nombre = jtNombre.getText();
             proyecto = data.buscarPorNombre(nombre);
-            jtNombre.setText(proyecto.getNombre());
-            jtDescripcion.setText(proyecto.getDescripcion());
-            CALENDARIO.setDate(java.sql.Date.valueOf(proyecto.getFechaInicial()));
-            jtId.setText(proyecto.getIdProyecto() + "");
-            
-            if (proyecto.isEstado()) {
-                jcbEnProceso.setSelected(true);
-                jcbFinalizado.setSelected(false);
-            } else {
-                jcbEnProceso.setSelected(false);
-                jcbFinalizado.setSelected(true);
+            if(proyecto!=null){
+                jtNombre.setText(proyecto.getNombre());
+                jtDescripcion.setText(proyecto.getDescripcion());
+                CALENDARIO.setDate(java.sql.Date.valueOf(proyecto.getFechaInicial()));
+                jtId.setText(proyecto.getIdProyecto() + "");
+
+                if (proyecto.isEstado()) {
+                    jcbEnProceso.setSelected(true);
+                    jcbFinalizado.setSelected(false);
+                } else {
+                    jcbEnProceso.setSelected(false);
+                    jcbFinalizado.setSelected(true);
+                }
+                jbNuevo.setEnabled(true);
+                jbModificar.setEnabled(true);
+                CALENDARIO.setEnabled(true);
+                jtDescripcion.setEnabled(true);
+                jbRegistrar.setEnabled(true);
             }
-        } catch (Exception e) {
-        }
+          
         
-        jbModificar.setEnabled(true);
+       
 
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        
+        if (jtNombre.getText().equals("")) {
+            jlErrorNombre.setText("DEBES COLOCAR UN NOMBRE");
+        } else {
+            jlErrorNombre.setText("");
+        }
+        if (jtDescripcion.getText().equals("")) {
+            jlErrorDescripcion.setText("DEBES COLOCAR UNA DESCRIPCION");
+        } else {
+            jlErrorDescripcion.setText("");
+        }
         try {
             int id = Integer.parseInt(jtId.getText());
             String nombre = jtNombre.getText();
@@ -310,18 +344,28 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             String fecha = formatoFecha.format(CALENDARIO.getDate());
             LocalDate fechainicial = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             boolean estado = true;
-            
+
             Proyecto proyecto = new Proyecto(id, nombre, descripcion, fechainicial, estado);
             ProyectoData data = new ProyectoData();
             data.modificarProyecto(proyecto);
-            
+
         } catch (NullPointerException ex) {
-            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA");
+            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA VALIDA");
         }
 
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistrarActionPerformed
+       if (jtNombre.getText().equals("")) {
+            jlErrorNombre.setText("DEBES COLOCAR UN NOMBRE");
+        } else {
+            jlErrorNombre.setText("");
+        }
+        if (jtDescripcion.getText().equals("")) {
+            jlErrorDescripcion.setText("DEBES COLOCAR UNA DESCRIPCION");
+        } else {
+            jlErrorDescripcion.setText("");
+        }
         try {
             String nombre = jtNombre.getText();
             String descripcion = jtDescripcion.getText();
@@ -336,7 +380,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             jbRegistrar.setEnabled(false);
             jbNuevo.setEnabled(true);
         } catch (NullPointerException ex) {
-            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA");
+            jlErrorFecha.setText("DEBES COLOCAR UNA FECHA VALIDA");
         }
     }//GEN-LAST:event_jbRegistrarActionPerformed
 
@@ -349,7 +393,7 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             jlErrorNombre.setText("");
             jtDescripcion.setEnabled(true);
             jbBuscar.setEnabled(true);
-            
+
         }
     }//GEN-LAST:event_jtNombreActionPerformed
 
@@ -358,12 +402,12 @@ public class VistaCrearProyecto extends javax.swing.JInternalFrame {
             jlErrorDescripcion.setText("DEBES COLOCAR UNA DESCRIPCION");
             CALENDARIO.setEnabled(false);
             jbRegistrar.setEnabled(true);
-            
+
         } else {
             jlErrorDescripcion.setText("");
             CALENDARIO.setEnabled(true);
             jbRegistrar.setEnabled(true);
-            
+
         }
     }//GEN-LAST:event_jtDescripcionActionPerformed
 

@@ -17,7 +17,7 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
         initComponents();
         llenarEquipos();
         llenarTablaMiembros();
-       
+
     }
 
     public void llenarTablaMiembros() {
@@ -45,6 +45,7 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jFecha = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
+        jlErrorMiembro = new javax.swing.JLabel();
 
         jButton1.setText("INCORPORAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +67,9 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
 
         jLabel3.setText("FECHA DE INCORPORACION:");
 
+        jlErrorMiembro.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jlErrorMiembro.setForeground(new java.awt.Color(255, 0, 51));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,15 +84,6 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(358, 358, 358))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(317, 317, 317)
-                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(120, 120, 120)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -101,6 +96,18 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
                         .addGap(47, 47, 47)
                         .addComponent(boxMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(317, 317, 317)
+                        .addComponent(jFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(320, 320, 320)
+                        .addComponent(jlErrorMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +116,9 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boxMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(104, 104, 104)
+                .addGap(18, 18, 18)
+                .addComponent(jlErrorMiembro, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boxEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -132,21 +141,27 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-        Miembro miembro = (Miembro) boxMiembro.getSelectedItem();
-        Equipo equipo = (Equipo) boxEquipos.getSelectedItem();
-        
-        SimpleDateFormat formatoFechaIncorporacion = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = formatoFechaIncorporacion.format(jFecha.getDate());
-        LocalDate fechaIncorporacion = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        try {
+            Miembro miembro = (Miembro) boxMiembro.getSelectedItem();
+            Equipo equipo = (Equipo) boxEquipos.getSelectedItem();
 
-        Incorporacion incorporacion = new Incorporacion(equipo, miembro, fechaIncorporacion);
-        incData.crearIncorporacion(incorporacion);
-        llenarTablaMiembros();
-       }catch(Exception ex){
-             JOptionPane.showMessageDialog(null, "INGRESE FECHA DE INCORPORACION");
-       }
-       
+            SimpleDateFormat formatoFechaIncorporacion = new SimpleDateFormat("dd-MM-yyyy");
+            String fecha = formatoFechaIncorporacion.format(jFecha.getDate());
+            LocalDate fechaIncorporacion = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+            Incorporacion incorporacion = new Incorporacion(equipo, miembro, fechaIncorporacion);
+            incData.crearIncorporacion(incorporacion);
+            llenarTablaMiembros();
+        } catch (NullPointerException ex) {
+            Miembro miembro = (Miembro) boxMiembro.getSelectedItem();
+            if (miembro == null) {
+                jlErrorMiembro.setText("NO HAY MIEMBROS");
+            } else {
+                JOptionPane.showMessageDialog(null, "INGRESE FECHA DE INCORPORACION");
+            }
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -159,5 +174,6 @@ public class VistaIncorporarMiembros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jlErrorMiembro;
     // End of variables declaration//GEN-END:variables
 }
