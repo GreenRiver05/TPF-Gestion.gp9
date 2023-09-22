@@ -279,7 +279,6 @@ public class MiembroData {
 
             } else {
                 do {
-
                     Miembro miembro = new Miembro();
                     miembro.setDni(rs.getInt("Dni"));
                     miembro.setNombre(rs.getString("Nombre"));
